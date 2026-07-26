@@ -1,0 +1,108 @@
+{
+  "data": {
+    "findContentFeed": {
+      "edges": [
+        {
+          "cursor": "1",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9101",
+            "title": "Contoh Peresmian Jalan Tol Baru Dukung Konektivitas Wilayah",
+            "slug": "contoh-peresmian-jalan-tol-baru-dukung-konektivitas-wilayah",
+            "shortId": "24AbC1dEfGh",
+            "url": "https://kumparan.com/kumparannews/contoh-peresmian-jalan-tol-baru-dukung-konektivitas-wilayah-24AbC1dEfGh",
+            "publishedAt": "2026-07-24T03:15:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "kumparannews", "displayName": "kumparanNEWS" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-tol-1.jpg"
+            }
+          }
+        },
+        {
+          "cursor": "2",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9102",
+            "title": "Contoh Rapat Kabinet Bahas Anggaran Belanja Negara Tahun Depan",
+            "slug": "contoh-rapat-kabinet-bahas-anggaran-belanja-negara-tahun-depan",
+            "shortId": "27XyZ9kLmNo",
+            "url": "https://kumparan.com/kumparannews/contoh-rapat-kabinet-bahas-anggaran-belanja-negara-tahun-depan-27XyZ9kLmNo",
+            "publishedAt": "2026-07-24T02:40:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "kumparannews", "displayName": "kumparanNEWS" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-rapat-2.jpg"
+            }
+          }
+        },
+        {
+          "cursor": "3",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9103",
+            "title": "Contoh Wawancara Eksklusif Menteri Soal Rencana Reformasi Birokrasi",
+            "slug": "contoh-wawancara-eksklusif-menteri-soal-rencana-reformasi-birokrasi",
+            "shortId": "25QwErTyUiP",
+            "url": "https://kumparan.com/kumparanreg/contoh-wawancara-eksklusif-menteri-soal-rencana-reformasi-birokrasi-25QwErTyUiP",
+            "publishedAt": "2026-07-24T01:55:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "kumparanreg", "displayName": "kumparanREG" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-menteri-3.jpg"
+            }
+          }
+        },
+        {
+          "cursor": "4",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9104",
+            "title": "Contoh Diskusi Publik Soroti Dampak Kebijakan Subsidi Energi",
+            "slug": "contoh-diskusi-publik-soroti-dampak-kebijakan-subsidi-energi",
+            "shortId": "26VbNmAsDfG",
+            "url": "https://kumparan.com/dian-fixture-lestari/contoh-diskusi-publik-soroti-dampak-kebijakan-subsidi-energi-26VbNmAsDfG",
+            "publishedAt": "2026-07-24T01:10:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "dian-fixture-lestari", "displayName": "Dian Fixture Lestari" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-energi-4.jpg"
+            }
+          }
+        },
+        {
+          "cursor": "5",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9105",
+            "title": "Contoh Peringatan Dini BMKG Soal Cuaca Ekstrem Akhir Pekan",
+            "slug": "contoh-peringatan-dini-bmkg-soal-cuaca-ekstrem-akhir-pekan",
+            "shortId": "24MnBvCxZaS",
+            "url": "https://kumparan.com/kumparannews/contoh-peringatan-dini-bmkg-soal-cuaca-ekstrem-akhir-pekan-24MnBvCxZaS",
+            "publishedAt": "2026-07-24T00:30:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "kumparannews", "displayName": "kumparanNEWS" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-cuaca-5.jpg"
+            }
+          }
+        },
+        {
+          "cursor": "6",
+          "node": {
+            "id": "6a5b5ba3200c1f000a0c9106",
+            "title": "Contoh Vonis Kasus Korupsi Proyek Infrastruktur Daerah",
+            "slug": "contoh-vonis-kasus-korupsi-proyek-infrastruktur-daerah",
+            "shortId": "27JkLpQrStU",
+            "url": "https://kumparan.com/kumparannews/contoh-vonis-kasus-korupsi-proyek-infrastruktur-daerah-27JkLpQrStU",
+            "publishedAt": "2026-07-23T23:50:00.000Z",
+            "channel": { "slug": "news", "name": "News" },
+            "account": { "username": "kumparannews", "displayName": "kumparanNEWS" },
+            "coverImage": {
+              "url": "https://blue.kumparan.com/image/upload/fl_progressive,fl_lossy,c_fill,f_auto,q_auto:best,w_640/v1634025439/contoh-vonis-6.jpg"
+            }
+          }
+        }
+      ],
+      "pageInfo": {
+        "endCursor": "2",
+        "hasNextPage": true
+      }
+    }
+  }
+}

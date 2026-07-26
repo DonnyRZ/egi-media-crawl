@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a top-level category hub listing page
+  (verified live 2026-07-24 against https://www.idntimes.com/news — a category hub, NOT the
+  404ing `/indeks` path; robots.txt only disallows `/?*`, `/*?utm*`, `/search?*`, `/tag-
+  manager*`, `/v1`, `/ajax/`, none of which this bare category path matches — see
+  src/adapters/idn_times/index.js module header "Discovery" section).
+
+  Content is fictional placeholder text ("Contoh ..."). Verified-live selectors reproduced
+  here:
+    - each real article card's title is an `<h2 data-cy="ds-card-article-title">` inside an
+      `<a href="...">`; the publish-date (`<span data-cy="ds-card-article-pubdate">`) and
+      category label (`<span data-cy="ds-card-article-category">`) are SIBLINGS of that `<a>`,
+      not descendants of it, so extraction walks up to the shared container.
+    - a non-article promo widget (`data-cy="ds-widget-card-*"`, `data-testid="ds-widget-card-
+      title"`) links out to a completely different subdomain (a "Regional" hyperlocal hub,
+      e.g. `bali.idntimes.com`) and must never be picked up by the `ds-card-article-title`-
+      scoped selector.
+    - an empty ad slot (`id="headline-ads-*"`) with no title at all must not break extraction.
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>Berita Terbaru Hari Ini di Indonesia dan Dunia | IDN Times</title></head>
+<body>
+<div id="page-root">
+  <section class="css-latest-news-grid">
+
+    <div width="full" direction="column" class="css-1ad5ig1 eu4eykc0">
+      <a target="_self" href="https://www.idntimes.com/news/indonesia/contoh-judul-berita-idn-times-pertama-00-fxtur-a1b2c3">
+        <div class="css-3rpodb eeiwg4r0">
+          <h2 class="css-1s5vea6 e1n92kx40" data-testid="title-article" data-cy="ds-card-article-title">Contoh Judul Berita IDN Times Pertama</h2>
+        </div>
+      </a>
+      <span class="css-3jky2j e1n92kx40" data-testid="publish-date-article" data-cy="ds-card-article-pubdate">24 Jul 2026, 11:00 WIB</span>
+      <div class="css-1f4me5c eu4eykc0">
+        <a target="_self" href="/news"><span class="css-1iryld8 e1n92kx40" data-cy="ds-card-article-category">News</span></a>
+      </div>
+    </div>
+
+    <div style="cursor:default" class="css-3r21cp elaxznl2">
+      <div id="headline-ads-1" width="full" class="css-fmrsg3 etnoybl0"><div id="IDN_HeadlineAds"></div></div>
+    </div>
+
+    <div width="full" direction="column" class="css-1ad5ig1 eu4eykc0">
+      <a target="_self" href="https://www.idntimes.com/news/world/contoh-berita-idn-times-dunia-c1c2-01-gwxyz-d4e5f6">
+        <div class="css-3rpodb eeiwg4r0">
+          <h2 class="css-1s5vea6 e1n92kx40" data-testid="title-article" data-cy="ds-card-article-title">Contoh Berita IDN Times Dunia</h2>
+        </div>
+      </a>
+      <span class="css-3jky2j e1n92kx40" data-testid="publish-date-article" data-cy="ds-card-article-pubdate">24 Jul 2026, 10:15 WIB</span>
+      <div class="css-1f4me5c eu4eykc0">
+        <a target="_self" href="/news"><span class="css-1iryld8 e1n92kx40" data-cy="ds-card-article-category">News</span></a>
+      </div>
+    </div>
+
+    <div width="full" direction="column" class="css-1ad5ig1 eu4eykc0">
+      <a target="_self" href="https://www.idntimes.com/news/indonesia/contoh-berita-idn-times-ketiga-00-hijkl-g7h8i9">
+        <div class="css-3rpodb eeiwg4r0">
+          <h2 class="css-1s5vea6 e1n92kx40" data-testid="title-article" data-cy="ds-card-article-title">Contoh Berita IDN Times Ketiga</h2>
+        </div>
+      </a>
+      <span class="css-3jky2j e1n92kx40" data-testid="publish-date-article" data-cy="ds-card-article-pubdate">24 Jul 2026, 09:48 WIB</span>
+      <div class="css-1f4me5c eu4eykc0">
+        <a target="_self" href="/news"><span class="css-1iryld8 e1n92kx40" data-cy="ds-card-article-category">News</span></a>
+      </div>
+    </div>
+
+    <!-- Non-article "Regional" hyperlocal promo widget — must be excluded (different selector
+         AND a different subdomain entirely, out of this adapter's host scope). -->
+    <div style="cursor:default" class="css-dd944b elaxznl2">
+      <div data-cy="ds-widget-card-1" width="full" class="css-x09kmo etnoybl0">
+        <a target="_self" href="https://bali.idntimes.com">
+          <div direction="column" class="css-1ukl45u0">
+            <h3 class="css-1t0nj1l e1n92kx40" data-testid="ds-widget-card-title">Bali</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </section>
+</div>
+</body>
+</html>

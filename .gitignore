@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Environment / secrets — never commit
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Logs & runtime
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Temp / local scratch
+tmp/
+temp/
+.cache/
+coverage/
+dist/
+build/
+
+# Docker / local volume leftovers
+*.sql.gz
+*.dump
+
+# Optional local override configs
+docker-compose.override.yml

@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/metropolitan/9000201/contoh-judul-berita-metropolitan-dari-sitemap-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T17:16:29+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Metropolitan dari Sitemap untuk Fixture Offline]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Metropolitan, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/regional/9000202/contoh-judul-berita-regional-dari-sitemap-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T17:15:09+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Regional dari Sitemap untuk Fixture Offline]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Regional, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/bisnis/9000203/contoh-judul-berita-bisnis-dari-sitemap-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T17:15:02+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Bisnis dari Sitemap untuk Fixture Offline]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Bisnis, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <!-- Deliberately the SAME URL as index-news.html's first item, to exercise discover()'s
+       cross-channel dedup (see fixtures/tribunnews/index-news.html). -->
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/nasional/9000101/contoh-judul-berita-nasional-pertama-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T17:13:55+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Nasional Pertama untuk Fixture Offline (duplikat dari index-news)]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Nasional, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/seleb/9000204/contoh-judul-berita-seleb-dari-sitemap-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T17:12:28+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Seleb dari Sitemap untuk Fixture Offline]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Seleb, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/sains/9000205/contoh-judul-berita-sains-dari-sitemap-untuk-fixture-offline]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T16:50:34+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita Sains dari Sitemap untuk Fixture Offline]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Sains, Contoh Tag Sitemap]]></news:keywords>
+    </news:news>
+  </url>
+  <!-- Non-article `/tag/` loc, deliberately included to exercise isArticleUrl()'s exclusion
+       during parseSitemapNewsXml() (mirrors index-news.html's own non-article entry). -->
+  <url>
+    <loc><![CDATA[https://www.tribunnews.com/tag/contoh-tag-non-artikel-sitemap]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[Tribunnews]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T16:45:00+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Tag Non Artikel Sitemap]]></news:title>
+      <news:keywords><![CDATA[Contoh Tag Non Artikel]]></news:keywords>
+    </news:news>
+  </url>
+</urlset>

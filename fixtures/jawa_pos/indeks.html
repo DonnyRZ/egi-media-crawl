@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of jawapos.com's `/indeks` listing
+  (verified live 2026-07-24 against https://www.jawapos.com/indeks — an SSR page that mixes
+  every category, ~20 items per load; see src/adapters/jawa_pos/index.js header comment on why
+  `?page=` never changes this response and deep pagination instead uses the GraphQL endpoint).
+
+  Content below is entirely fictional placeholder text ("Contoh Judul..."), following the same
+  convention as fixtures/tirto/channel-indeks.html and fixtures/liputan6/channel-news.html —
+  only the `__NEXT_DATA__` JSON SHAPE (`props.pageProps.initialArticles = { paginatorInfo:
+  { hasMorePages }, data: Article[] }`) mirrors the real site; discover() extracts entries
+  from this blob directly, with NO DOM/CSS selectors involved (see extractListingEntriesFromHtml
+  / extractListingFromNextData in index.js). `hasMorePages: true` here documents that a real
+  crawl run would continue via the GraphQL `articles(...)` endpoint once this SSR page's items
+  are exhausted (not exercised by the offline smoke test, which never sets CRAWL_LIVE).
+
+  The first entry intentionally matches fixtures/jawa_pos/sample-article.html's own
+  `article_id`/`slug`/`category.slug` exactly, so the smoke test can discover a URL and then
+  parse() that SAME article end-to-end from its own dedicated fixture.
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>Indeks Berita | JawaPos.com</title></head>
+<body>
+<div id="__next"></div>
+<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"initialArticles":{"__typename":"ArticleSimplePaginator","paginatorInfo":{"__typename":"SimplePaginatorInfo","hasMorePages":true},"data":[{"__typename":"Article","authors":[{"__typename":"Reporter","id":"b30b1cf0-e9a7-4bdb-9ed4-4dc304cca919","name":"Contoh Reporter","slug":"contoh-reporter-69755"}],"category":{"__typename":"Category","id":"019c7e04-4bfd-719d-922b-6a6d51759085","name":"Sepak Bola Dunia","slug":"sepak-bola-dunia","publisher":{"__typename":"Publisher","id":"1","name":"www.jawapos.com"},"parent":null,"childrens":[]},"id":"019f91aa-faa9-729b-9ace-3b3bcf49390f","article_id":"2607240073","title":"Contoh Judul Berita Jawa Pos Pertama","slug":"contoh-judul-berita-jawa-pos-pertama","description":"Ringkasan contoh berita Jawa Pos yang dipakai sebagai fixture regresi adapter.","show_ads":true,"cover":"https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture.webp","published_at":"2026-07-24 08:10:08"},{"__typename":"Article","authors":[{"__typename":"Reporter","id":"5109c2a5-33e3-486d-81ff-2d6d3c9ac149","name":"Contoh Reporter Dua","slug":"contoh-reporter-dua-24457"}],"category":{"__typename":"Category","id":"019c7e04-4bb6-70a1-9f7e-2b6c4b1a9b10","name":"Ekonomi","slug":"ekonomi","publisher":{"__typename":"Publisher","id":"1","name":"www.jawapos.com"},"parent":null,"childrens":[]},"id":"019f91a5-3693-7278-80b1-858b19d24ce0","article_id":"2607240072","title":"Contoh Judul Berita Jawa Pos Kedua","slug":"contoh-judul-berita-jawa-pos-kedua","description":"Ringkasan contoh berita Jawa Pos kedua yang dipakai sebagai fixture regresi adapter.","show_ads":true,"cover":"https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture-dua.webp","published_at":"2026-07-24 07:54:05"},{"__typename":"Article","authors":[{"__typename":"Reporter","id":"019c7e04-4bf7-7089-878c-158f3a59c82d","name":"Contoh Reporter Tiga","slug":"contoh-reporter-tiga-11223"}],"category":{"__typename":"Category","id":"019c7e04-4bb8-7120-ab8e-7d1145fb7f70","name":"Nasional","slug":"nasional","publisher":{"__typename":"Publisher","id":"1","name":"www.jawapos.com"},"parent":null,"childrens":[]},"id":"019f8d3e-7739-71d8-9b01-d98d02c76617","article_id":"2607240071","title":"Contoh Judul Berita Jawa Pos Ketiga","slug":"contoh-judul-berita-jawa-pos-ketiga","description":"Ringkasan contoh berita Jawa Pos ketiga yang dipakai sebagai fixture regresi adapter.","show_ads":true,"cover":"https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture-tiga.webp","published_at":"2026-07-24 07:41:22"}]},"initialCategory":null,"headerData":{"categories":[],"breakingNews":[],"networks":[]},"footerData":{},"generalAdsScripts":[]},"page":"/indeks","query":{},"buildId":"contoh-build-id-fixture"}}</script>
+</body>
+</html>

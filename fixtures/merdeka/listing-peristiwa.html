@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a merdeka.com category hub listing page
+  (verified live 2026-07-24 via direct HTTP fetches — PowerShell Invoke-WebRequest with a
+  desktop-browser User-Agent — against https://www.merdeka.com/peristiwa — see
+  src/adapters/merdeka/index.js module header for the full field matrix and live-verification
+  notes).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), following the same
+  convention as fixtures/idn_times, fixtures/tirto — only the STRUCTURE (class names,
+  data-attributes) mirrors the real site.
+
+  This fixture is specifically built to prove:
+  1. `li.article__item[data-article-id][data-category]` (verified live, the main "latest in
+     this channel" feed — NOT the smaller `news-grid__list__item` widget or the
+     `tags-popular__item` trending sidebar, both of which reuse the same `data-article-id`s and
+     must NOT be double-counted by the primary listing selector) is the discovery source: its
+     `a.article__title` is both the title text AND the href.
+  2. `li.article__item`'s own `<time>` sibling (verified live, INSIDE `.article__detail`) always
+     ships an EMPTY `datetime=""` attribute (only a human-relative "N menit yang lalu" string in
+     its text) — so `published_hint` is deliberately left undefined for hub-sourced items; the
+     sitemap secondary channel (see `sitemap-peristiwa.xml`) is what supplies a real
+     `published_hint`, and the article page's own `article:published_time` meta remains
+     authoritative regardless (see `sample-article.html`).
+  3. Pagination links (verified live, `pagination__link` `href="...?page=N"`) are robots-
+     disallowed (`Disallow: /*?` in robots.txt) and must NEVER be followed/fetched — this
+     fixture includes one so a regression can assert it's never surfaced as a discovered item.
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>Berita Peristiwa Terkini Indonesia - merdeka.com</title></head>
+<body>
+<div class="news-grid" data-component="news-grid">
+    <ul class="news-grid__list gap-4 grid grid-cols-4">
+        <li data-article-id="9000001" data-category="Nasional" class="news-grid__list__item">
+            <a href="https://www.merdeka.com/peristiwa/read/9000001/contoh-berita-trending-widget-satu" class="hover:text-default-link">
+                <span class="news-grid__list__title font-semibold mb-1 line-clamp-2 font-heading">Contoh Berita Trending Widget Satu</span>
+                <div class="news-grid__list__detail flex items-center gap-2 text-xs text-default-gray">
+                    <time class="news-grid__list__published" datetime="2026-07-24 16:34:20">38 menit yang lalu</time>
+                </div>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<ul class="article__list">
+    <li class="article__item" data-article-id="9000001" data-category="Nasional">
+        <div class="flex items-start gap-4">
+            <a href="https://www.merdeka.com/peristiwa/read/9000001/contoh-berita-trending-widget-satu" class="article__figure rounded-lg overflow-hidden aspect-[220/140] relative block w-[220px] shrink-0">
+                <img class="w-full h-full object-cover" loading="lazy" src="https://cdn1-production-images-kly.akamaized.net/contoh/220x140/contoh-1.jpg" width="220" height="140" alt="Contoh Berita Trending Widget Satu">
+            </a>
+            <div class="article__detail flex flex-col -mt-2">
+                <div class="flex items-center gap-1 text-xs text-default-gray">
+                    <a href="https://www.merdeka.com/peristiwa" class="block py-2 text-default-link hover:text-blue-700 tracking-wider">News</a>
+                    <span class="text-gray-300">&bull;</span>
+                    <time datetime="">38 menit yang lalu</time>
+                </div>
+                <a href="https://www.merdeka.com/peristiwa/read/9000001/contoh-berita-trending-widget-satu" class="article__title font-semibold font-heading line-clamp-3 text-base mb-2">Contoh Berita Trending Widget Satu</a>
+                <p class="text-sm text-default-gray line-clamp-2">Contoh ringkasan singkat untuk berita fixture pertama, dipakai untuk menguji ekstraksi listing.</p>
+            </div>
+        </div>
+    </li>
+    <li class="article__item" data-article-id="9000002" data-category="Regional">
+        <div class="flex items-start gap-4">
+            <a href="https://www.merdeka.com/peristiwa/read/9000002/contoh-berita-fixture-kedua" class="article__figure rounded-lg overflow-hidden aspect-[220/140] relative block w-[220px] shrink-0">
+                <img class="w-full h-full object-cover" loading="lazy" src="https://cdn1-production-images-kly.akamaized.net/contoh/220x140/contoh-2.jpg" width="220" height="140" alt="Contoh Berita Fixture Kedua">
+            </a>
+            <div class="article__detail flex flex-col -mt-2">
+                <div class="flex items-center gap-1 text-xs text-default-gray">
+                    <a href="https://www.merdeka.com/peristiwa" class="block py-2 text-default-link hover:text-blue-700 tracking-wider">News</a>
+                    <span class="text-gray-300">&bull;</span>
+                    <time datetime="">52 menit yang lalu</time>
+                </div>
+                <a href="https://www.merdeka.com/peristiwa/read/9000002/contoh-berita-fixture-kedua" class="article__title font-semibold font-heading line-clamp-3 text-base mb-2">Contoh Berita Fixture Kedua</a>
+                <p class="text-sm text-default-gray line-clamp-2">Contoh ringkasan singkat untuk berita fixture kedua.</p>
+            </div>
+        </div>
+    </li>
+    <li class="article__item" data-article-id="9000003" data-category="News">
+        <div class="flex items-start gap-4">
+            <a href="https://www.merdeka.com/peristiwa/read/9000003/contoh-berita-fixture-ketiga" class="article__figure rounded-lg overflow-hidden aspect-[220/140] relative block w-[220px] shrink-0">
+                <img class="w-full h-full object-cover" loading="lazy" src="https://cdn1-production-images-kly.akamaized.net/contoh/220x140/contoh-3.jpg" width="220" height="140" alt="Contoh Berita Fixture Ketiga">
+            </a>
+            <div class="article__detail flex flex-col -mt-2">
+                <div class="flex items-center gap-1 text-xs text-default-gray">
+                    <a href="https://www.merdeka.com/peristiwa" class="block py-2 text-default-link hover:text-blue-700 tracking-wider">News</a>
+                    <span class="text-gray-300">&bull;</span>
+                    <time datetime="">1 jam yang lalu</time>
+                </div>
+                <a href="https://www.merdeka.com/peristiwa/read/9000003/contoh-berita-fixture-ketiga" class="article__title font-semibold font-heading line-clamp-3 text-base mb-2">Contoh Berita Fixture Ketiga</a>
+                <p class="text-sm text-default-gray line-clamp-2">Contoh ringkasan singkat untuk berita fixture ketiga.</p>
+            </div>
+        </div>
+    </li>
+    <li class="article__item" data-article-id="9000004" data-category="Regional">
+        <div class="flex items-start gap-4">
+            <a href="https://www.merdeka.com/peristiwa/read/9000004/contoh-berita-fixture-keempat" class="article__figure rounded-lg overflow-hidden aspect-[220/140] relative block w-[220px] shrink-0">
+                <img class="w-full h-full object-cover" loading="lazy" src="https://cdn1-production-images-kly.akamaized.net/contoh/220x140/contoh-4.jpg" width="220" height="140" alt="Contoh Berita Fixture Keempat">
+            </a>
+            <div class="article__detail flex flex-col -mt-2">
+                <div class="flex items-center gap-1 text-xs text-default-gray">
+                    <a href="https://www.merdeka.com/peristiwa" class="block py-2 text-default-link hover:text-blue-700 tracking-wider">News</a>
+                    <span class="text-gray-300">&bull;</span>
+                    <time datetime="">2 jam yang lalu</time>
+                </div>
+                <a href="https://www.merdeka.com/peristiwa/read/9000004/contoh-berita-fixture-keempat" class="article__title font-semibold font-heading line-clamp-3 text-base mb-2">Contoh Berita Fixture Keempat</a>
+                <p class="text-sm text-default-gray line-clamp-2">Contoh ringkasan singkat untuk berita fixture keempat.</p>
+            </div>
+        </div>
+    </li>
+    <li class="article__item" data-article-id="9000005" data-category="News">
+        <div class="flex items-start gap-4">
+            <a href="https://www.merdeka.com/peristiwa/read/9000005/contoh-berita-fixture-kelima" class="article__figure rounded-lg overflow-hidden aspect-[220/140] relative block w-[220px] shrink-0">
+                <img class="w-full h-full object-cover" loading="lazy" src="https://cdn1-production-images-kly.akamaized.net/contoh/220x140/contoh-5.jpg" width="220" height="140" alt="Contoh Berita Fixture Kelima">
+            </a>
+            <div class="article__detail flex flex-col -mt-2">
+                <div class="flex items-center gap-1 text-xs text-default-gray">
+                    <a href="https://www.merdeka.com/peristiwa" class="block py-2 text-default-link hover:text-blue-700 tracking-wider">News</a>
+                    <span class="text-gray-300">&bull;</span>
+                    <time datetime="">3 jam yang lalu</time>
+                </div>
+                <a href="https://www.merdeka.com/peristiwa/read/9000005/contoh-berita-fixture-kelima" class="article__title font-semibold font-heading line-clamp-3 text-base mb-2">Contoh Berita Fixture Kelima</a>
+                <p class="text-sm text-default-gray line-clamp-2">Contoh ringkasan singkat untuk berita fixture kelima.</p>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<!-- Pagination — robots-disallowed `?page=` query strings (Disallow: /*?). Must never be
+     followed/fetched by discover(); a regression asserts no discovered item's URL contains
+     "?page=". -->
+<div class="pagination text-xs flex justify-center items-center gap-3 my-8 font-medium" data-component="pagination">
+    <ul class="pagination__number flex items-center border border-gray-200 rounded-lg bg-white">
+        <li class="pagination__item active"><a href="https://www.merdeka.com/peristiwa?page=1" class="pagination__link">1</a></li>
+        <li class="pagination__item"><a href="https://www.merdeka.com/peristiwa?page=2" class="pagination__link">2</a></li>
+    </ul>
+</div>
+</body>
+</html>

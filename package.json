@@ -1,0 +1,40 @@
+{
+  "name": "egi-media-crawl",
+  "version": "0.1.0",
+  "description": "Reliable multi-source news article crawler for EGI Media (discovery + adapters + queue pipeline). Foundation scaffold in progress.",
+  "main": "src/workers/index.js",
+  "private": true,
+  "scripts": {
+    "start": "node src/workers/index.js",
+    "dev": "nodemon src/workers/index.js",
+    "migrate": "node scripts/migrate.js",
+    "crawl:once": "node scripts/crawl-once.js",
+    "report": "node scripts/crawl-report.js",
+    "report:check": "node scripts/report-check.js",
+    "smoke:report-check": "node src/metrics/health.smoke.js",
+    "smoke:egi-read-dto": "node src/dto/egiArticleRead.smoke.js",
+    "smoke:rate-limits": "node scripts/probe-rate-limits.js",
+    "smoke:overlap-parse": "node src/core/parseListingDate.smoke.js",
+    "schedule": "node scripts/scheduler.js",
+    "schedule:staging": "node scripts/schedule-staging.js",
+    "schedule:all": "node scripts/schedule-all.js",
+    "stack:up": "docker compose up -d",
+    "stack:down": "docker compose down",
+    "stack:ps": "docker compose ps",
+    "dev:up": "node scripts/dev-up.js",
+    "smoke:shutdown": "node scripts/smoke-shutdown.js"
+  },
+  "author": "EGI Media",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.13.2",
+    "bullmq": "^5.79.2",
+    "cheerio": "^1.2.0",
+    "dotenv": "^17.2.3",
+    "ioredis": "^5.11.1",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}

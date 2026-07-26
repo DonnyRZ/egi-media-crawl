@@ -1,0 +1,26 @@
+{
+  "_comment": "Offline fixture documenting the REAL response shape of the GraphQL deep-pagination endpoint used by discoverLive() (src/adapters/jawa_pos/index.js fetchGraphqlArticlesPage) — verified live 2026-07-24 via a direct POST to https://api.jawapos.com/api-jp-graphql with query `articles(filter: { publisherId: \"1\" }, first: 20, page: 2) { paginatorInfo { hasMorePages } data { article_id title slug description published_at category { name slug } } } }`. Titles/slugs below are entirely fictional placeholder text; only the JSON SHAPE mirrors the real, live-verified response (an `ArticleSimplePaginator`: `{ paginatorInfo: { hasMorePages }, data: Article[] }` — the identical shape `initialArticles`/`categoryArticle` use in __NEXT_DATA__, see index.js header). Not wired into the offline smoke test (which never performs network I/O), kept here as a contract-test/documentation fixture per the Sprint 4 task brief ('listing/GraphQL fixture as needed').",
+  "data": {
+    "articles": {
+      "paginatorInfo": { "hasMorePages": true },
+      "data": [
+        {
+          "article_id": "2607240046",
+          "title": "Contoh Judul Berita Jawa Pos Hasil Deep Pagination Satu",
+          "slug": "contoh-judul-berita-jawa-pos-hasil-deep-pagination-satu",
+          "description": "Ringkasan contoh artikel hasil halaman GraphQL kedua yang dipakai sebagai fixture regresi adapter.",
+          "published_at": "2026-07-24 06:58:41",
+          "category": { "name": "Ekonomi", "slug": "ekonomi" }
+        },
+        {
+          "article_id": "2607240045",
+          "title": "Contoh Judul Berita Jawa Pos Hasil Deep Pagination Dua",
+          "slug": "contoh-judul-berita-jawa-pos-hasil-deep-pagination-dua",
+          "description": "Ringkasan contoh artikel hasil halaman GraphQL kedua yang dipakai sebagai fixture regresi adapter.",
+          "published_at": "2026-07-24 06:47:19",
+          "category": { "name": "Nasional", "slug": "nasional" }
+        }
+      ]
+    }
+  }
+}

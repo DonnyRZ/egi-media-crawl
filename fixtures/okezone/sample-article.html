@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a news.okezone.com article page
+  (verified live 2026-07-24 against https://news.okezone.com/read/2026/07/24/337/3232094/
+  jamwas-tegaskan-pelimpahan-perkara-dari-polri-ke-kejagung-bukan-hal-baru and
+  https://bola.okezone.com/read/2026/07/24/51/3232091/... — see
+  src/adapters/okezone/index.js header comment for the full field matrix and
+  live-verification notes).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), following the same
+  convention as fixtures/jawa_pos and fixtures/tempo — only the STRUCTURE (JSON-LD shapes,
+  meta tags, `.c-detail.read` body markup, `#paging`/`#tag` widgets) mirrors the real site.
+
+  This is PAGE 1 of a 2-page article (see `#paging` at the bottom: two `.nomor` links). It is
+  specifically built to prove:
+  1. `#baca-juga` "Baca Juga" recirculation blocks (verified live, present after nearly every
+     paragraph) must be stripped from content_text.
+  2. `.vicon` embedded-video iframe wrappers must be stripped from content_text.
+  3. The `<div style="page-break-after: always">` marker at the very end of page 1's
+     `.c-detail.read` must never leak into content_text as an empty paragraph.
+  4. `#paging .box-nomor a.nomor` (two `<a>` links) signals a 2-page article, which
+     resolveFullArticleHtml() must then try to resolve via the bundled
+     `sample-article-page-all.html` fixture (NOT a per-page `?page=2` fetch).
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Judul Berita Okezone Pertama : Okezone News</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="https://news.okezone.com/">
+  <meta property="og:title" content="Contoh Judul Berita Okezone Pertama : Okezone News">
+  <meta property="og:url" content="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama">
+  <meta property="og:description" content="Ringkasan contoh berita Okezone yang dipakai sebagai fixture regresi adapter, mencakup pelimpahan perkara antar penyidik.">
+  <meta property="og:image" content="https://img.okezone.com/content/2026/07/24/337/9100001/contoh_thumbnail-fixture_large.jpg">
+  <link rel="canonical" href="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama" />
+
+  <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "headline": "Contoh Judul Berita Okezone Pertama",
+        "url": "https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama",
+        "datePublished": "2026-07-24T15:18:24+07:00",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://img.okezone.com/content/2026/07/24/337/9100001/contoh_thumbnail-fixture_large.jpg",
+            "width": 750,
+            "height": 500
+        },
+        "description": "Ringkasan contoh berita Okezone yang dipakai sebagai fixture regresi adapter, mencakup pelimpahan perkara antar penyidik.",
+        "keywords": ""
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "item": { "@id": "https://okezone.com", "name": "Home" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": { "@id": "https://news.okezone.com/", "name": "News" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@id": "https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama",
+                    "name": "Nasional"
+                }
+            }
+        ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "9100001" },
+        "headline": "Contoh Judul Berita Okezone Pertama",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://img.okezone.com/content/2026/07/24/337/9100001/contoh_thumbnail-fixture_large.jpg",
+            "height": 419,
+            "width": 800
+        },
+        "datePublished": "2026-07-24T15:18:24+07:00",
+        "dateModified": "2026-07-24 15:16:40",
+        "author": { "@type": "Person", "name": "Contoh Jurnalis" },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Okezone.com",
+            "logo": { "@type": "ImageObject", "url": "https://cdn.okezone.com/m/2015/v2/img/mobile1xdefault.gif", "width": 375, "height": 43 }
+        },
+        "description": "Ringkasan contoh berita Okezone yang dipakai sebagai fixture regresi adapter, mencakup pelimpahan perkara antar penyidik."
+    }
+  </script>
+</head>
+<body>
+<div class="wrapper-container">
+    <div class="left-section">
+        <div class="breadcrumb">
+            <a href="https://www.okezone.com/">HOME</a>
+            <a href="https://news.okezone.com/">NEWS</a>
+            <a href="https://news.okezone.com/nasional">NASIONAL</a>
+        </div>
+        <section class="section article">
+            <div class="title-article">
+                <h1>Contoh Judul Berita Okezone Pertama</h1>
+            </div>
+            <div class="journalist">
+                <a href="https://redaksi.okezone.com/detail/contoh-jurnalis/9999" class="icon-profile" aria-label="icon account"></a>
+                <a href="https://redaksi.okezone.com/detail/contoh-jurnalis/9999" title="Contoh Jurnalis">Contoh Jurnalis</a>
+                <span>&#44;&nbsp;Jurnalis-Jum'at, 24 Juli 2026 |15:18 WIB</span>
+            </div>
+            <div class="img-article">
+                <img lazy="loading" src="https://img.okezone.com/content/2026/07/24/337/9100001/contoh_thumbnail-fixture_large.jpg" alt="Contoh Judul Berita Okezone Pertama" />
+                <div class="desc-foto">Contoh keterangan foto (fixture)</div>
+            </div>
+
+            <div class="c-detail read">
+                <p></p>
+                <p><strong>JAKARTA</strong> - Ini adalah paragraf pembuka dari contoh artikel berita Okezone yang digunakan sebagai fixture untuk keperluan pengujian adapter, mencakup konteks pelimpahan perkara antar penyidik.</p>
+                <div id="baca-juga">
+                    <div class="text baca">Baca Juga:</div>
+                    <div class="group-baca">
+                        <a href="https://mpi.okezone.com/article/sindonews/9999999" class="text title">Contoh Artikel Republikasi Brand Lain yang Tidak Boleh Ikut Terparsing</a>
+                    </div>
+                </div>
+                <p>Paragraf kedua berisi informasi tambahan mengenai konteks berita, termasuk kutipan dari sumber terkait yang relevan dengan topik yang dibahas dalam contoh ini.</p>
+                <div class="vicon"><iframe allowfullscreen="" frameborder="0" height="340" src="https://www.youtube.com/embed/contohvideofixture" width="100%"></iframe></div>
+                <p>Paragraf ketiga muncul setelah video sisipan dan tetap harus ikut terekstrak sebagai bagian dari isi artikel yang sah.</p>
+                <div style="page-break-after: always"><span style="display: none;"> </span></div>
+                <p></p>
+            </div>
+        </section>
+
+        <div id="paging">
+            <div class="title">Halaman:</div>
+            <div class="box-nomor">
+                <a href="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama" class="nomor active">1</a>
+                <a href="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama?page=2" class="nomor">2</a>
+            </div>
+        </div>
+
+        <div id="tag">
+            <div class="title">Topik Artikel :</div>
+            <div class="box-tag">
+                <a href="https://www.okezone.com/tag/kasus-korupsi" class="text">Kasus korupsi</a>
+                <a href="https://www.okezone.com/tag/kejagung" class="text">Kejagung</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

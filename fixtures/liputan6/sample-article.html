@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a Liputan6 article page (verified
+  live 2026-07-24 against https://www.liputan6.com/news/read/8253586/... — see
+  src/adapters/liputan6/index.js header comment for the full field matrix).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), only the structure
+  (JSON-LD shape, DOM classes, data-* attributes) mirrors the real site.
+
+  CRITICAL: this single HTML document encodes a MULTIPAGE article the way Liputan6 really
+  ships it — ALL pages are server-rendered into ONE response as sibling
+  `.article-content-body__item-page[data-page="N"]` blocks (no separate `?page=N` HTTP
+  fetch like detik/viva/suara need). `parse()` MUST walk every `[data-page]` block found in
+  this one document and merge their paragraphs in `data-page` order; it must NOT stop at the
+  first block. Page 2 below ("Update Redaksi") only exists to prove that merge happens.
+-->
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Contoh Judul Berita Liputan6 Multipage</title>
+<meta name="description" content="Contoh ringkasan singkat berita Liputan6 untuk keperluan pengujian adapter, mencakup dua halaman yang harus digabung.">
+<meta name="keywords" content="Contoh Tag Satu, Contoh Tag Dua, Liputan6 Multipage">
+<meta property="og:site_name" content="liputan6.com">
+<meta property="og:url" content="https://www.liputan6.com/news/read/9000001/contoh-judul-berita-liputan6-multipage">
+<meta property="og:title" content="Contoh Judul Berita Liputan6 Multipage">
+<meta property="og:description" content="Contoh ringkasan singkat berita Liputan6 untuk keperluan pengujian adapter, mencakup dua halaman yang harus digabung.">
+<meta property="og:image" content="https://cdn0-production-images-kly.akamaized.net/example/1200x675/contoh-thumbnail.jpg">
+<meta property="article:published_time" content="2026-07-24T10:26:00+07:00">
+<meta property="article:modified_time" content="2026-07-24T11:05:00+07:00">
+<meta property="og:updated_time" content="2026-07-24T11:05:00+07:00">
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"NewsArticle","headline":"Contoh Judul Berita Liputan6 Multipage","datePublished":"2026-07-24T10:26:00+07:00","dateModified":"2026-07-24T11:05:00+07:00","description":"Contoh ringkasan singkat berita Liputan6 untuk keperluan pengujian adapter, mencakup dua halaman yang harus digabung.","mainEntityOfPage":{"@type":"WebPage","@id":"https://www.liputan6.com/news/read/9000001/contoh-judul-berita-liputan6-multipage"},"image":{"@type":"ImageObject","url":"https://cdn0-production-images-kly.akamaized.net/example/1200x675/contoh-thumbnail.jpg"},"author":[{"@type":"Person","name":"Contoh Penulis","url":"https://www.liputan6.com/author/contoh.penulis"}],"publisher":{"@type":"Organization","name":"Liputan6.com","logo":{"@type":"ImageObject","url":"https://cdn-production-assets-kly.akamaized.net/assets/images/liputan6/amp-logo.png"}}},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":"1","name":"Liputan6","item":"https://www.liputan6.com"},{"@type":"ListItem","position":"2","name":"News","item":"https://www.liputan6.com/news"},{"@type":"ListItem","position":"3","name":"Contoh Judul Berita Liputan6 Multipage","item":"https://www.liputan6.com/news/read/9000001/contoh-judul-berita-liputan6-multipage"}]}]</script>
+</head>
+<body>
+<ul class="read-page--breadcrumb" data-component="desktop:read-page:breadcrumb">
+  <li class="read-page--breadcrumb--item"><a class="read-page--breadcrumb--item__title" href="https://www.liputan6.com" data-category="Liputan6"><span>Home</span></a></li>
+  <li class="read-page--breadcrumb--item"><a class="read-page--breadcrumb--item__title" href="https://www.liputan6.com/news" data-category="News"><span>News</span></a></li>
+  <li class="read-page--breadcrumb--item"><a class="read-page--breadcrumb--item__title" href="https://www.liputan6.com/news/politik" data-category="Politik"><span>Politik</span></a></li>
+</ul>
+<article class="main" data-article-id="9000001" role="main" data-component-name="desktop:read-page">
+  <div class="read-page-upper">
+    <header class="read-page--header">
+      <h1 class="read-page--header--title entry-title" itemprop="headline">Contoh Judul Berita Liputan6 Multipage</h1>
+      <div class="read-page--header--description"><p>Contoh ringkasan singkat berita Liputan6 untuk keperluan pengujian adapter, mencakup dua halaman yang harus digabung.</p></div>
+      <div class="read-page-box read-page-box-top" data-location="top">
+        <div class="read-page-box__left">
+          <div class="read-page-box__author">
+            <a href="https://www.liputan6.com/author/contoh.penulis" class="read-page-box__author__link" title="Contoh Penulis" itemprop="url" rel="author"><img src="https://cdn0-production-images-kly.akamaized.net/example/26x26/avatar.jpg" alt="Contoh Penulis" class="read-page-box__author__avatar-img"></a>
+            <div class="read-page-box__author__datetime">
+              <div class="read-page-box__author__datetime__wrapper"><span>Oleh</span><a href="https://www.liputan6.com/author/contoh.penulis" class="read-page-box__author__name">Contoh Penulis</a></div>
+              <span class="read-page-box__author__trigger"><span class="read-page-box__author__updated">Diterbitkan 24 Juli 2026, 10:26 WIB</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <!-- The real site also renders a "Kesimpulan"/summary <ul> here (`.read-page--summary`);
+       intentionally omitted from this fixture since it is not part of `.article-content-body`
+       and must NOT be picked up by paragraph extraction. -->
+
+  <div class="article-content-body article-content-body_with-aside" data-component="desktop:read-page:article-content-body">
+    <div class="article-content-body__item-page " data-page="1" data-title="">
+      <div class="article-content-body__item-content" data-component="desktop:read-page:article-content-body:section:text">
+        <p><b>Liputan6.com, Jakarta -</b> Ini adalah paragraf pertama dari halaman pertama contoh artikel Liputan6, dipakai untuk menguji ekstraksi paragraf dasar sebelum penggabungan multipage dilakukan.</p>
+        <p>Paragraf kedua pada halaman pertama menambahkan detail konteks, dan berikutnya akan disisipi blok "Baca Juga" yang wajib dibuang sebelum teks disimpan.</p>
+        <div class="baca-juga-collections" data-category="Politik" data-component-name="desktop:read-page:article-content-body:section:bacajuga">
+          <div class="baca-juga-collections__detail" data-url="https://www.liputan6.com/news/read/9000005/contoh-artikel-terkait" data-title="Contoh Artikel Terkait">BACA JUGA:<a href="https://www.liputan6.com/news/read/9000005/contoh-artikel-terkait">Contoh Artikel Terkait</a></div>
+        </div>
+        <p>Paragraf ketiga menutup halaman pertama, sebelum pembaca berpindah (secara transparan, tanpa request HTTP baru) ke blok data-page="2" di bawah.</p>
+      </div>
+    </div>
+    <div id="gpt-ad-liputan6-sc-1" class="article-ad"></div>
+    <div id="div-revive-ad-liputan6-sc" class="article-ad" data-component-name="ads:revive-ads"><ins data-revive-zoneid="3"></ins></div>
+    <div class="article-content-body__item-page " data-page="2" data-title="Update Redaksi">
+      <h2 id="update-redaksi" class="article-content-body__item-title" data-component-name="desktop:read-page:article-content-body:section:pagetitle">Update Redaksi</h2>
+      <div class="article-content-body__item-content" data-component="desktop:read-page:article-content-body:section:text">
+        <p>Paragraf ini hanya ada di halaman kedua (data-page="2"). Jika muncul pada content_text hasil parse(), berarti penggabungan multipage berhasil dilakukan tanpa fetch tambahan.</p>
+        <p>Paragraf penutup halaman kedua, melengkapi contoh artikel dua halaman ini.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="read-page--engagement">
+    <div class="read-page-box read-page-box-bottom" data-location="bottom">
+      <div class="read-page-box__left">
+        <div class="read-page-box__author">
+          <div class="read-page-box__author__team-detail">
+            <span class="read-page-box__author__team-detail__people">Contoh Penulis</span>
+            <span class="read-page-box__author__team-detail__name">Tim Redaksi</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+</body>
+</html>

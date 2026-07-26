@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+  Trimmed offline fixture reproducing the REAL markup shape of a Liputan6 channel page
+  (verified live 2026-07-24 against https://www.liputan6.com/news — the site's own
+  "/news/indeks" is a client-side date-range filter with no default SSR list, so the
+  channel page itself is used as the discovery source instead; see src/adapters/liputan6/
+  index.js header comment).
+
+  Content below is entirely fictional placeholder text ("Contoh Judul...", following the
+  same convention as fixtures/detik and fixtures/suara) — only the CSS classes / data-*
+  attributes / element nesting mirror the real site.
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>News - Liputan6.com</title></head>
+<body>
+<div class="headline--bottom-slider__list js-headline--bottom-slider">
+  <div class="headline--bottom-slider__item" data-article-id="9000001" data-type="TextTypeArticle" data-channel="News" data-category="Politik" data-title="Contoh Judul Berita Liputan6 Multipage">
+    <a class="ui--a headline--bottom-slider__link" href="https://www.liputan6.com/news/read/9000001/contoh-judul-berita-liputan6-multipage" title="Contoh Judul Berita Liputan6 Multipage">
+      <div class="headline--bottom-slider__item_thumbnail"><img src="https://cdn0-production-images-kly.akamaized.net/example/190x110/contoh.jpg" alt="Contoh Judul Berita Liputan6 Multipage" class="small-img" width="190" height="110" loading="lazy"></div>
+      <div class="headline--bottom-slider__item_header">
+        <time class="headline--bottom-slider__item_timestamp timeago" datetime="2026-07-24T10:26:00+07:00">24 Jul 2026 10:26</time>
+        <div class="headline--bottom-slider__item_title">Contoh Judul Berita Liputan6 Multipage</div>
+      </div>
+    </a>
+  </div>
+  <div class="headline--bottom-slider__item" data-article-id="9000002" data-type="TextTypeArticle" data-channel="News" data-category="Bisnis" data-title="Contoh Judul Berita Liputan6 Kedua">
+    <a class="ui--a headline--bottom-slider__link" href="https://www.liputan6.com/bisnis/read/9000002/contoh-judul-berita-liputan6-kedua" title="Contoh Judul Berita Liputan6 Kedua">
+      <div class="headline--bottom-slider__item_thumbnail"><img src="https://cdn1-production-images-kly.akamaized.net/example/190x110/contoh2.jpg" alt="Contoh Judul Berita Liputan6 Kedua" class="small-img" width="190" height="110" loading="lazy"></div>
+      <div class="headline--bottom-slider__item_header">
+        <time class="headline--bottom-slider__item_timestamp timeago" datetime="2026-07-24T09:00:00+07:00">24 Jul 2026 09:00</time>
+        <div class="headline--bottom-slider__item_title">Contoh Judul Berita Liputan6 Kedua</div>
+      </div>
+    </a>
+  </div>
+  <div class="headline--bottom-slider__item" data-article-id="9000003" data-type="TextTypeArticle" data-channel="News" data-category="Bola" data-title="Contoh Judul Berita Liputan6 Ketiga">
+    <a class="ui--a headline--bottom-slider__link" href="https://www.liputan6.com/bola/read/9000003/contoh-judul-berita-liputan6-ketiga" title="Contoh Judul Berita Liputan6 Ketiga">
+      <div class="headline--bottom-slider__item_thumbnail"><img src="https://cdn0-production-images-kly.akamaized.net/example/190x110/contoh3.jpg" alt="Contoh Judul Berita Liputan6 Ketiga" class="small-img" width="190" height="110" loading="lazy"></div>
+      <div class="headline--bottom-slider__item_header">
+        <time class="headline--bottom-slider__item_timestamp timeago" datetime="2026-07-24T08:00:00+07:00">24 Jul 2026 08:00</time>
+        <div class="headline--bottom-slider__item_title">Contoh Judul Berita Liputan6 Ketiga</div>
+      </div>
+    </a>
+  </div>
+  <div class="headline--bottom-slider__item" data-article-id="9000004" data-type="TextTypeArticle" data-channel="News" data-category="Photo" data-title="Contoh Galeri Foto Liputan6 (bukan artikel)">
+    <a class="ui--a headline--bottom-slider__link" href="https://www.liputan6.com/photo/read/9000004/contoh-galeri-foto-liputan6-bukan-artikel" title="Contoh Galeri Foto Liputan6 (bukan artikel)">
+      <div class="headline--bottom-slider__item_header">
+        <time class="headline--bottom-slider__item_timestamp timeago" datetime="2026-07-24T07:00:00+07:00">24 Jul 2026 07:00</time>
+        <div class="headline--bottom-slider__item_title">Contoh Galeri Foto Liputan6 (bukan artikel)</div>
+      </div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

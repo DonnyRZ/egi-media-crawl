@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fixture for the secondary discovery channel (see src/adapters/beritasatu/index.js module
+  header "Discovery, secondary"). Shaped after the real, live-verified per-kanal
+  `https://www.beritasatu.com/sitemap/{kanal}/news.xml` Google News Sitemap (CDATA-wrapped
+  <loc>/<news:title>, <news:publication_date> already full ISO 8601 with an explicit +07:00
+  offset) — this fixture uses synthetic-but-schema-faithful sample data captured from the real
+  live shape, per the task brief's "capture fixtures with successful fetches" instruction.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc><![CDATA[https://www.beritasatu.com/nasional/900001/contoh-berita-beritasatu-pertama]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[BeritaSatu]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T16:39:00+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Judul Berita BeritaSatu Pertama]]></news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc><![CDATA[https://www.beritasatu.com/nasional/900007/contoh-berita-beritasatu-dari-sitemap]]></loc>
+    <news:news>
+      <news:publication>
+        <news:name><![CDATA[BeritaSatu]]></news:name>
+        <news:language><![CDATA[id]]></news:language>
+      </news:publication>
+      <news:publication_date><![CDATA[2026-07-24T13:05:00+07:00]]></news:publication_date>
+      <news:title><![CDATA[Contoh Berita BeritaSatu dari Sitemap News]]></news:title>
+    </news:news>
+  </url>
+  <url>
+    <!-- Non-article entry (kanal root) — must be filtered out by isArticleUrl(). -->
+    <loc><![CDATA[https://www.beritasatu.com/nasional]]></loc>
+  </url>
+</urlset>

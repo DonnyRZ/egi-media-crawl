@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a Tirto.id article page (verified
+  live 2026-07-24 against https://tirto.id/bi-pertahankan-suku-bunga-acuan-575-persen-pada-
+  juli-2026-hz5T and a handful of other samples — see src/adapters/tirto/index.js header
+  comment for the full field matrix).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), only the structure
+  (meta tags, DOM classes) mirrors the real site. Tirto ships NO `NewsArticle`/`Article`
+  JSON-LD block at all (verified live — only `BreadcrumbList` + `Organization`, omitted here
+  since coreAdapter.js never reads them), so every field here comes from Open Graph/meta or
+  DOM, matching what parse() actually looks for.
+
+  Two things this fixture is specifically built to prove:
+  1. `published_at` (DOM "Terbit ...") and `updated_at_source` (`article:modified_time` meta)
+     are tracked as genuinely separate values here (11:00 vs. a later 14:12 edit) — verified
+     live this really happens (a Sep-2025 sample had an original "Terbit" date and a
+     `dateModified`-equivalent two weeks later).
+  2. `meta[name="news_keywords"]` mixes real topical keywords ("suku bunga acuan", "bank
+     indonesia fixture") with restated channel/taxonomy labels ("bisnis tirto", "insider",
+     "ekonomi", "flash news") that duplicate the breadcrumb trail — `extractTags()` must
+     filter the latter out.
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Judul Berita Tirto Pertama</title>
+  <meta name="description" content="Ringkasan contoh berita Tirto yang dipakai sebagai fixture regresi adapter.">
+  <meta name="news_keywords" content="suku bunga acuan,bank indonesia fixture,flash news,ekonomi,bisnis tirto,insider">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="tirto.id">
+  <meta property="og:title" content="Contoh Judul Berita Tirto Pertama">
+  <meta property="og:url" content="https://tirto.id/contoh-judul-berita-tirto-pertama-hzAA">
+  <meta property="og:description" content="Ringkasan contoh berita Tirto yang dipakai sebagai fixture regresi adapter.">
+  <meta property="og:image" content="https://mmc.tirto.id/image/otf/1240x0/contoh-thumbnail_ratio-16x9.jpg">
+  <meta property="article:author" content="Contoh Reporter">
+  <meta property="article:modified_time" content="2026-07-24 14:12:07">
+  <link rel="canonical" href="https://tirto.id/contoh-judul-berita-tirto-pertama-hzAA">
+</head>
+<body>
+  <div class="breadcrumbs-wrapper">
+    <a href="https://tirto.id">Beranda</a>
+    <a href="https://tirto.id/bisnis-tirto">Bisnis</a>
+    <a href="https://tirto.id/bisnis-tirto/insider">Insider</a>
+    <a href="https://tirto.id/bisnis-tirto/insider/ekonomi">Ekonomi</a>
+  </div>
+
+  <div class="article-wrapper">
+    <article>
+      <header class="article-header">
+        <div class="article-heading">
+          <h1 class="article-title">Contoh Judul Berita Tirto Pertama</h1>
+          <p class="kicker">Ringkasan contoh berita Tirto yang dipakai sebagai fixture regresi adapter.</p>
+        </div>
+        <div class="article-meta text-small mt-16 mb-24 flex flex-end">
+          <div class="flex-1">
+            <div class="byline">
+              <a class="reporter-name text-semibold" href="https://tirto.id/author/contoh-reporter">Contoh Reporter</a>
+              <div>Terbit 24 Jul 2026 11:00 WIB</div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-text-editor">
+        <p><a href="https://tirto.id">tirto.id</a> - Ini adalah paragraf pembuka dari contoh artikel berita yang digunakan sebagai fixture untuk keperluan pengujian adapter Tirto, mencakup kutipan dan konteks tambahan yang cukup panjang.</p>
+        <div id="gpt-inline2-passback"><script>window.googletag=window.googletag||{};</script></div>
+        <p>Paragraf kedua berisi informasi tambahan mengenai konteks berita, termasuk kutipan dari sumber terkait yang relevan dengan topik yang dibahas dalam contoh ini.</p>
+        <ins data-revive-zoneid="297" data-revive-id="contohzoneid00000000000000000000"></ins>
+        <style>#gpt-inline3-passback{text-align:center;}</style>
+        <div class="baca-holder bold">
+          <span>Baca juga:</span>
+          <ul>
+            <li><a href="https://tirto.id/contoh-artikel-terkait-hzYY" target="_blank" rel="noopener">Contoh Artikel Terkait yang Tidak Boleh Ikut Terparsing</a></li>
+          </ul>
+        </div>
+        <h2>Contoh Subjudul di Tengah Artikel</h2>
+        <p>Paragraf ketiga muncul setelah subjudul dan tetap harus ikut terekstrak sebagai bagian dari isi artikel yang sah.</p>
+        <p><img src="//mmc.tirto.id/image/contoh-foto-inline.jpg" width="1200" height="789" alt="Contoh foto" class="img-content" loading="lazy" title="Contoh judul foto"></p>
+        <figcaption style="text-align: left;border-bottom:1px dashed #ccc;padding-bottom:20px;">contoh keterangan foto yang tidak boleh ikut masuk ke content_text, antara foto/contoh/ama/26.</figcaption>
+        <p>Paragraf penutup menyampaikan ringkasan singkat serta informasi lanjutan untuk melengkapi contoh artikel fixture ini.</p>
+      </div>
+    </article>
+  </div>
+</body>
+</html>

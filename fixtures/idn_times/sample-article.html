@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a www.idntimes.com article page
+  (verified live 2026-07-24 via direct HTTP fetches — PowerShell Invoke-WebRequest with a
+  desktop-browser User-Agent — against
+  https://www.idntimes.com/news/indonesia/febrie-adriansyah-penuhi-panggilan-kejagung-diperiksa-jadi-saksi-tppu-00-vdzm7-nxxvry
+  and
+  https://www.idntimes.com/news/indonesia/prabowo-sebut-londo-ireng-masih-ada-kini-jadi-jurnalis-hingga-lsm-00-jkxzp-81sknq
+  — see src/adapters/idn_times/index.js module header for the full field matrix and
+  live-verification notes).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), following the same
+  convention as fixtures/tirto, fixtures/okezone, fixtures/sindonews — only the STRUCTURE
+  (JSON-LD shapes, meta tags, `data-testid`/`id` selectors) mirrors the real site.
+
+  This fixture is specifically built to prove:
+  1. The `NewsArticle` JSON-LD block is the PRIMARY source for headline/author/dates/image/
+     keywords, and (verified live) usually ships a real `articleBody` string too — used here
+     only as a last-resort content fallback since it has no paragraph boundaries.
+  2. `dateModified`/`datePublished` both carry an explicit `+07:00` offset (verified live,
+     unlike okezone/tirto's no-tz `dateModified`) — no "assume WIB" heuristic needed here.
+  3. `keywords` (verified live on one real sample) can contain a junk/placeholder entry,
+     "Update me" — must be filtered out of `tags`.
+  4. The `WebPage` JSON-LD's `breadcrumb.itemListElement` (verified live) is the category
+     source — last non-"Home" item, correctly cased ("Indonesia").
+  5. DOM `#article-description p.article-text` (verified live, real site uses this exact
+     `id`/class pair) is the paragraph-structured body; `<a data-x-link-type="internal">`
+     in-body tag links (verified live, e.g. linking a mention to its own `/tag/...` page)
+     must not corrupt paragraph text when their surrounding text is extracted.
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Judul Berita IDN Times Pertama | IDN Times</title>
+  <meta name="description" content="Contoh Judul Berita IDN Times Pertama"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:site_name" content="IDN Times"/>
+  <meta property="og:title" content="Contoh Judul Berita IDN Times Pertama"/>
+  <meta property="og:description" content="Contoh Judul Berita IDN Times Pertama"/>
+  <meta property="og:url" content="https://www.idntimes.com/news/indonesia/contoh-judul-berita-idn-times-pertama-00-fxtur-a1b2c3"/>
+  <meta property="og:image" content="https://image.idntimes.com/post/20260724/contoh-thumbnail-fixture_watermarked_idntimes-1.jpeg"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="675"/>
+  <link rel="canonical" href="https://www.idntimes.com/news/indonesia/contoh-judul-berita-idn-times-pertama-00-fxtur-a1b2c3"/>
+
+  <script id="schema-markup-global" type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"IDN Times","url":"https://www.idntimes.com","logo":"https://image.idntimes.com/monorepo/idntimes/logo.png","sameAs":["https://www.instagram.com/idntimes","https://x.com/idntimes"]}</script>
+  <script id="schema-markup-website" type="application/ld+json">{"@context":"https://schema.org","@type":"Website","url":"https://www.idntimes.com","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.idntimes.com/search?q={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":"https://schema.org/True","valueName":"search_term_string"}}}</script>
+  <script id="schema-markup-article" type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","articleBody":"Jakarta, IDN Times - Ini adalah contoh paragraf pembuka artikel fixture yang dipakai untuk menguji adapter IDN Times, mencakup konteks pengujian ekstraksi JSON-LD articleBody sebagai fallback ketika DOM tidak tersedia.Paragraf kedua berisi kutipan contoh narasumber fixture yang relevan dengan topik pengujian ini.Paragraf ketiga menutup contoh artikel dengan ringkasan singkat mengenai hasil pengujian adapter.","author":[{"@type":"Person","name":"Contoh Jurnalis Fixture","url":"https://www.idntimes.com/author/contoh-jurnalis-fixture-fxtur"}],"dateModified":"2026-07-24T16:03:52+07:00","datePublished":"2026-07-24T11:00:00+07:00","description":"Ringkasan contoh berita IDN Times yang dipakai sebagai fixture regresi adapter, mencakup pengujian ekstraksi JSON-LD dan DOM.","headline":"Contoh Judul Berita IDN Times Pertama","image":{"@type":"ImageObject","height":800,"url":"https://image.idntimes.com/post/20260724/contoh-thumbnail-fixture_watermarked_idntimes-1.jpeg","width":1200},"keywords":["Contoh Topik Fixture","Pengujian Adapter","Update me"],"mainEntityOfPage":{"@id":"https://www.idntimes.com/news/indonesia/contoh-judul-berita-idn-times-pertama-00-fxtur-a1b2c3","@type":"WebPage"},"publisher":{"@type":"Organization","logo":{"@type":"ImageObject","height":60,"url":"https://image.idntimes.com/monorepo/idntimes/logo.png","width":600},"name":"IDN Times","url":"https://www.idntimes.com"}}</script>
+  <script id="schema-markup-webpage" type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","headline":"Contoh Judul Berita IDN Times Pertama","url":"https://www.idntimes.com/news/indonesia/contoh-judul-berita-idn-times-pertama-00-fxtur-a1b2c3","breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https://www.idntimes.com","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@id":"https://www.idntimes.com/news","name":"News"}},{"@type":"ListItem","position":3,"item":{"@id":"https://www.idntimes.com/news/indonesia","name":"Indonesia"}}]},"publisher":{"@type":"Organization","name":"IDN Times"}}</script>
+</head>
+<body>
+<div id="page-root">
+  <nav class="css-breadcrumb-nav">
+    <a href="/"><span class="css-f182y2 e1n92kx40" data-testid="breadcrumbs-1">Home</span></a>
+    <a href="/news"><span class="css-f182y2 e1n92kx40" data-testid="breadcrumbs-2">News</span></a>
+    <a href="/news/indonesia"><span class="css-f182y2 e1n92kx40" data-testid="breadcrumbs-3">Indonesia</span></a>
+  </nav>
+
+  <h1 class="css-14ocrue e1n92kx40" data-testid="title-article" font-family="var(--font-poppins)" font-weight="bold">Contoh Judul Berita IDN Times Pertama</h1>
+
+  <div class="css-1f4me5c eu4eykc0">
+    <div class="css-poyhnr eu4eykc0">
+      <a target="_self" href="https://www.idntimes.com/author/contoh-jurnalis-fixture-fxtur">
+        <div class="css-1j4rpr4 e1n92kx40" data-testid="author-article-1" font-family="var(--font-poppins)" font-weight="light">Contoh Jurnalis Fixture</div>
+      </a>
+    </div>
+    <span class="css-1d4q7lk e1n92kx40" data-testid="publish-date-article" font-family="var(--font-poppins)" font-weight="light">
+      <time dateTime="2026-07-24T11:00:00+07:00">24 Jul 2026, 11:00 WIB</time>
+    </span>
+  </div>
+
+  <div id="article-description" class="css-144qbxp etnoybl0">
+    <div direction="column" width="full" class="e36fnk60 css-1idf21t eu4eykc0">
+      <p class="article-text css-2o53ze e1n92kx40"><strong>Jakarta, IDN Times - </strong>Ini adalah contoh paragraf pembuka artikel fixture yang dipakai untuk menguji adapter <a rel="dofollow" target="_blank" data-x-link-type="internal" href="https://www.idntimes.com/tag/idn-times">IDN Times</a>, mencakup konteks pengujian ekstraksi DOM sebagai sumber utama isi artikel.</p>
+      <p class="article-text css-2o53ze e1n92kx40">Paragraf kedua berisi kutipan contoh narasumber fixture yang relevan dengan topik pengujian <a rel="dofollow" target="_blank" data-x-link-type="internal" href="https://www.idntimes.com/tag/pengujian-adapter">Pengujian Adapter</a> ini.</p>
+      <p class="article-text css-2o53ze e1n92kx40">Paragraf ketiga menutup contoh artikel dengan ringkasan singkat mengenai hasil pengujian adapter.</p>
+    </div>
+  </div>
+
+  <div data-testid="tag-list" id="tag-list" class="css-3q9o6y e17qctga0">
+    <div id="tag-list-content" data-testid="row-0">
+      <a target="_self" href="https://www.idntimes.com/tag/contoh-topik-fixture"><span class="css-dyhe1q e1n92kx40">Contoh Topik Fixture</span></a>
+      <a target="_self" href="https://www.idntimes.com/tag/pengujian-adapter"><span class="css-dyhe1q e1n92kx40">Pengujian Adapter</span></a>
+    </div>
+  </div>
+</div>
+</body>
+</html>

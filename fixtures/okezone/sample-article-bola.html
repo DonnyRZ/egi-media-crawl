@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a bola.okezone.com article page
+  (verified live 2026-07-24 against https://bola.okezone.com/read/2026/07/24/51/3232091/
+  3-negara-dengan-gelar-piala-aff-terbanyak-nomor-1-bukan-timnas-indonesia — same template as
+  news.okezone.com, confirming the shared `.c-detail.read`/JSON-LD shape holds across kanal
+  subdomains). Content is fictional placeholder text ("Contoh ...").
+
+  Single-page (no `#paging` widget) — used by the smoke test to prove discover()/parse() work
+  identically on a SECOND kanal subdomain, and that isArticleUrl() accepts bola.okezone.com.
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Judul Berita Okezone Bola : Okezone Bola</title>
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="https://bola.okezone.com/">
+  <meta property="og:title" content="Contoh Judul Berita Okezone Bola : Okezone Bola">
+  <meta property="og:url" content="https://bola.okezone.com/read/2026/07/24/51/9200001/contoh-judul-berita-okezone-bola">
+  <meta property="og:description" content="Ringkasan contoh berita olahraga Okezone yang dipakai sebagai fixture regresi adapter.">
+  <meta property="og:image" content="https://img.okezone.com/content/2026/07/24/51/9200001/contoh_thumbnail_bola-fixture_large.jpg">
+  <meta itemprop="datePublished" content="2026-07-24T15:07:00+07:00" />
+  <link rel="canonical" href="https://bola.okezone.com/read/2026/07/24/51/9200001/contoh-judul-berita-okezone-bola" />
+
+  <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "item": { "@id": "https://okezone.com", "name": "Home" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "item": { "@id": "https://bola.okezone.com/", "name": "Bola" }
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "item": {
+                    "@id": "https://bola.okezone.com/read/2026/07/24/51/9200001/contoh-judul-berita-okezone-bola",
+                    "name": "Sepakbola Dunia"
+                }
+            }
+        ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        "mainEntityOfPage": { "@type": "WebPage", "@id": "9200001" },
+        "headline": "Contoh Judul Berita Okezone Bola",
+        "image": {
+            "@type": "ImageObject",
+            "url": "https://img.okezone.com/content/2026/07/24/51/9200001/contoh_thumbnail_bola-fixture_large.jpg",
+            "height": 419,
+            "width": 800
+        },
+        "datePublished": "2026-07-24T15:07:00+07:00",
+        "dateModified": "2026-07-24 15:06:35",
+        "author": { "@type": "Person", "name": "Contoh Jurnalis Olahraga" },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Okezone.com",
+            "logo": { "@type": "ImageObject", "url": "https://cdn.okezone.com/m/2015/v2/img/mobile1xdefault.gif", "width": 375, "height": 43 }
+        },
+        "description": "Ringkasan contoh berita olahraga Okezone yang dipakai sebagai fixture regresi adapter."
+    }
+  </script>
+</head>
+<body>
+<div class="wrapper-container">
+    <div class="left-section">
+        <div class="breadcrumb">
+            <a href="https://www.okezone.com/">HOME</a>
+            <a href="https://bola.okezone.com/">BOLA</a>
+            <a href="https://bola.okezone.com/sepakbola-dunia">SEPAKBOLA DUNIA</a>
+        </div>
+        <section class="section article">
+            <div class="title-article">
+                <h1>Contoh Judul Berita Okezone Bola</h1>
+            </div>
+            <div class="journalist">
+                <a href="https://redaksi.okezone.com/detail/contoh-jurnalis-olahraga/8888" title="Contoh Jurnalis Olahraga">Contoh Jurnalis Olahraga</a>
+                <span>&#44;&nbsp;Jurnalis-Jum'at, 24 Juli 2026 |15:07 WIB</span>
+            </div>
+
+            <div class="c-detail read">
+                <p><strong>BERIKUT</strong> adalah contoh tiga tim dengan gelar terbanyak yang dipakai sebagai fixture pengujian adapter Okezone kanal olahraga.</p>
+                <div id="baca-juga">
+                    <div class="text baca">Baca Juga:</div>
+                    <div class="group-baca">
+                        <a href="https://www.inews.id/sport/sepakbola/contoh-artikel-inews-brand-lain" class="text title">Contoh Artikel Brand Lain (iNews) yang Tidak Boleh Ikut Terparsing</a>
+                    </div>
+                </div>
+                <p>Paragraf kedua berisi detail contoh statistik pertandingan yang relevan dengan topik yang dibahas.</p>
+                <p>Paragraf ketiga menutup contoh artikel ini dengan kutipan penutup dari sumber terkait.</p>
+            </div>
+        </section>
+
+        <div id="tag">
+            <div class="title">Topik Artikel :</div>
+            <div class="box-tag">
+                <a href="https://www.okezone.com/tag/piala-aff" class="text">Piala AFF</a>
+                <a href="https://www.okezone.com/tag/timnas-indonesia" class="text">Timnas Indonesia</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

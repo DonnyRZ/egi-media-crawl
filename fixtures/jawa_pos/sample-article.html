@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a jawapos.com article page (verified
+  live 2026-07-24 against https://www.jawapos.com/sepak-bola-dunia/2607240073/konser-pitbull-
+  paksa-fk-kauno-zalgiris-pindah-kandang-mimpi-bermain-di-liga-champions-terganggu and several
+  other samples — see src/adapters/jawa_pos/index.js header comment for the full field matrix
+  and live-verification notes).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), following the same
+  convention as fixtures/tirto and fixtures/cnn_indonesia — only the STRUCTURE (the
+  `__NEXT_DATA__` JSON shape, meta tags) mirrors the real site. Jawa Pos ships NO
+  `NewsArticle`/`Article` JSON-LD block at all (verified live — only `WebSite` +
+  `NewsMediaOrganization`, omitted here since coreAdapter.js never reads them); the
+  `__NEXT_DATA__` blob below IS the primary data source parse() actually reads.
+
+  Three things this fixture is specifically built to prove:
+  1. `article.content` contains "Baca Juga: <a>...</a>" related-link paragraphs
+     (`<p><strong class="readmore">...`) that extractParagraphsFromContent() must strip.
+  2. `article.content` contains a `<p class="page"></p>` client-side reader-pagination marker
+     — verified live this does NOT mean content is split across responses (a `?page=2` fetch
+     of the same URL returned byte-for-byte identical HTML) — the paragraph AFTER the marker
+     must still survive into content_text, proving no content is lost.
+  3. The lead `<figure>...<figcaption>...</figcaption></figure>` (cover photo, re-embedded
+     inline) must NOT leak its caption text into content_text.
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Judul Berita Jawa Pos Pertama - JawaPos.com</title>
+  <meta name="description" content="Ringkasan contoh berita Jawa Pos yang dipakai sebagai fixture regresi adapter.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://www.jawapos.com/sepak-bola-dunia/2607240073/contoh-judul-berita-jawa-pos-pertama">
+  <meta property="og:title" content="Contoh Judul Berita Jawa Pos Pertama">
+  <meta property="og:description" content="Ringkasan contoh berita Jawa Pos yang dipakai sebagai fixture regresi adapter.">
+  <meta property="og:image" content="https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture.webp">
+  <link rel="canonical" href="https://www.jawapos.com/sepak-bola-dunia/2607240073/contoh-judul-berita-jawa-pos-pertama">
+  <script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"article":{"__typename":"Article","id":"019f91aa-faa9-729b-9ace-3b3bcf49390f","article_id":"2607240073","title":"Contoh Judul Berita Jawa Pos Pertama","slug":"contoh-judul-berita-jawa-pos-pertama","description":"Ringkasan contoh berita Jawa Pos yang dipakai sebagai fixture regresi adapter.","show_ads":true,"cover":"https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture.webp","published_at":"2026-07-24 08:10:08","content":"<figure><img src=\"https://cdn-assets.jawapos.com/images/1/2026/07/24/contoh-thumbnail-fixture.webp\" alt=\"Contoh caption gambar\" width=\"100%\"><figcaption>Contoh keterangan foto yang tidak boleh ikut masuk ke content_text.</figcaption></figure>\n<p>&nbsp;</p>\n<p><strong>JawaPos.com </strong>- Ini adalah paragraf pembuka dari contoh artikel berita yang digunakan sebagai fixture untuk keperluan pengujian adapter Jawa Pos, mencakup konteks tambahan yang cukup panjang.</p>\n<p>Paragraf kedua berisi informasi tambahan mengenai konteks berita, termasuk kutipan dari sumber terkait yang relevan dengan topik yang dibahas dalam contoh ini.</p>\n<p><strong class=\"readmore\">Baca Juga: <a href=\"https://jawapos.com/contoh-kategori/2607240099/contoh-artikel-terkait-yang-tidak-boleh-ikut-terparsing\">Contoh Artikel Terkait yang Tidak Boleh Ikut Terparsing</a></strong></p>\n<p>Paragraf ketiga muncul setelah tautan terkait dan tetap harus ikut terekstrak sebagai bagian dari isi artikel yang sah.</p>\n<h2>Contoh Subjudul di Tengah Artikel</h2>\n<p>Paragraf keempat muncul setelah subjudul, tetap harus ikut terekstrak sebagai bagian dari isi artikel yang sah.</p>\n<p class=\"page\"></p>\n<p>Paragraf kelima berada setelah marker pagination sisi klien, tetapi tetap berasal dari satu response HTML yang sama dan harus tetap ikut terekstrak.</p>","sources":[],"authors":[{"__typename":"Reporter","id":"b30b1cf0-e9a7-4bdb-9ed4-4dc304cca919","name":"Contoh Reporter","slug":"contoh-reporter-69755"}],"publisher":{"__typename":"Publisher","id":"1","name":"www.jawapos.com"},"editor":{"__typename":"User","id":"019c7e04-4bf7-7089-878c-158f3a59c82d","email":"contoh.editor@jawapos.com","name":"Contoh Editor"},"category":{"__typename":"Category","id":"019c7e04-4bfd-719d-922b-6a6d51759085","name":"Sepak Bola Dunia","slug":"sepak-bola-dunia","publisher":{"__typename":"Publisher","id":"1","name":"www.jawapos.com"},"parent":null,"childrens":[]},"tags":[{"__typename":"Tag","id":"019f91aa-fadd-71c0-abba-b3ce29e222c5","name":"contoh tag satu","slug":"contoh-tag-satu"},{"__typename":"Tag","id":"b6455604-edf8-46c3-8893-0250289c0021","name":"contoh tag dua","slug":"contoh-tag-dua"}],"related":[]},"articleAdsScripts":[],"generalAdsScripts":[],"headerData":{"categories":[],"breakingNews":[],"networks":[]},"footerData":{},"popularNews":[],"currentPage":1,"totalPages":2,"isAll":false,"disableAmpLayout":false},"page":"/[category]/[articleId]/[slug]","query":{"category":"sepak-bola-dunia","articleId":"2607240073","slug":"contoh-judul-berita-jawa-pos-pertama"},"buildId":"contoh-build-id-fixture"}}</script>
+</head>
+<body>
+  <div id="__next">
+    <article>
+      <h1>Contoh Judul Berita Jawa Pos Pertama</h1>
+    </article>
+  </div>
+</body>
+</html>

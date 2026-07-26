@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Contoh Judul Berita Premium Media Indonesia - Media Indonesia</title>
+<link rel="canonical" href="https://mediaindonesia.com/ekonomi/900009/contoh-judul-berita-premium-media-indonesia">
+<meta property="og:title" content="Contoh Judul Berita Premium Media Indonesia">
+<meta property="og:description" content="Ringkasan singkat contoh berita premium/teaser untuk keperluan fixture offline Sprint 6a.">
+<meta name="description" content="Ringkasan singkat contoh berita premium/teaser untuk keperluan fixture offline Sprint 6a.">
+<meta property="og:url" content="https://mediaindonesia.com/ekonomi/900009/contoh-judul-berita-premium-media-indonesia">
+<meta property="og:image" content="https://cdn.mediaindonesia.com/media/images/2026/07/24/contoh-thumbnail-premium.jpg">
+<meta property="article:published_time" content="2026-07-24T09:00:00+07:00">
+<meta property="article:author" content="Contoh Reporter Premium">
+</head>
+<body>
+<nav class="breadcrumb">
+  <a href="https://mediaindonesia.com/">Beranda</a>
+  <a href="https://mediaindonesia.com/ekonomi">Ekonomi</a>
+</nav>
+
+<!--
+  No live Media Indonesia premium/teaser-only article was actually observed during this
+  assessment (see src/adapters/media_indonesia/index.js module header "Premium/teaser
+  articles") — this fixture is a synthetic, worst-case exercise of the defensive
+  detectPremiumOrTeaser() heuristic (explicit marker element + paywall CTA text + a body
+  short enough to trip MIN_FULL_CONTENT_CHARS on its own), so the offline smoke test proves
+  the confidence-drop path fires correctly without ever having to fake a full article body.
+-->
+<article class="detail-artikel">
+  <h1>Contoh Judul Berita Premium Media Indonesia</h1>
+
+  <div class="date-author">
+    <span class="author">Contoh Reporter Premium</span>
+    <span class="date">24/7/2026 09:00</span>
+  </div>
+
+  <div class="premium-badge">Konten Premium</div>
+
+  <div class="article">
+    <p>Paragraf teaser singkat ini sengaja dibuat pendek untuk mensimulasikan artikel premium/berlangganan yang hanya menampilkan cuplikan awal kepada pembaca non-pelanggan.</p>
+
+    <p>Berlangganan untuk membaca artikel selengkapnya.</p>
+  </div>
+
+  <div class="editor-name">Editor : Contoh Editor Premium</div>
+
+  <div class="tag-list">
+    <a href="https://mediaindonesia.com/tag/contoh-tag-premium">#Contoh Tag Premium</a>
+  </div>
+</article>
+</body>
+</html>

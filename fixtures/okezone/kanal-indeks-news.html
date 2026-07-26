@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a single kanal's own `/indeks` listing
+  page (verified live 2026-07-24 against https://news.okezone.com/indeks — `.group-brt-terkini
+  .subgroup` items, each with an `a.desc-text[href]` title link, an `a.title-text` category
+  label, and an `a.time-text` "{D} {MonthName} {YYYY} {HH:MM:SS}" timestamp — see
+  src/adapters/okezone/index.js header comment "Discovery"). Content is fictional placeholder
+  text ("Contoh ..."). All items are `news.okezone.com` (kanal-scoped listing, single kanal).
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>Indeks Okezone News - Halaman 1</title></head>
+<body>
+<div class="wrapper-container">
+    <form class="form-inline" id="form1" name="form1" method="post" action="https://news.okezone.com/indeks/index"></form>
+    <section class="section brt-terkini">
+        <div class="jscroll-inner">
+            <div class="group-brt-terkini">
+                <div class="subgroup">
+                    <a href="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama" class="img-section" aria-label="article-image"></a>
+                    <div class="desc-section">
+                        <a href="https://news.okezone.com/nasional" class="title-text" aria-labelledby="article kanal"><div></div>Nasional</a>
+                        <a href="https://news.okezone.com/read/2026/07/24/337/9100001/contoh-judul-berita-okezone-pertama" class="desc-text" aria-labelledby="article title">Contoh Judul Berita Okezone Pertama</a>
+                        <a class="time-text" aria-labelledby="article time">24 Juli 2026 15:18:24</a>
+                    </div>
+                </div>
+            </div>
+            <div class="group-brt-terkini">
+                <div class="subgroup">
+                    <a href="https://news.okezone.com/read/2026/07/24/337/9100003/contoh-judul-berita-okezone-ketiga" class="img-section" aria-label="article-image"></a>
+                    <div class="desc-section">
+                        <a href="https://news.okezone.com/nasional" class="title-text" aria-labelledby="article kanal"><div></div>Nasional</a>
+                        <a href="https://news.okezone.com/read/2026/07/24/337/9100003/contoh-judul-berita-okezone-ketiga" class="desc-text" aria-labelledby="article title">Contoh Judul Berita Okezone Ketiga</a>
+                        <a class="time-text" aria-labelledby="article time">24 Juli 2026 14:57:00</a>
+                    </div>
+                </div>
+            </div>
+            <div class="group-brt-terkini">
+                <div class="subgroup">
+                    <a href="https://news.okezone.com/read/2026/07/24/337/9100004/contoh-judul-berita-okezone-keempat" class="img-section" aria-label="article-image"></a>
+                    <div class="desc-section">
+                        <a href="https://news.okezone.com/internasional" class="title-text" aria-labelledby="article kanal"><div></div>International</a>
+                        <a href="https://news.okezone.com/read/2026/07/24/337/9100004/contoh-judul-berita-okezone-keempat" class="desc-text" aria-labelledby="article title">Contoh Judul Berita Okezone Keempat</a>
+                        <a class="time-text" aria-labelledby="article time">24 Juli 2026 14:48:00</a>
+                    </div>
+                </div>
+            </div>
+            <!-- robots.txt Disallow: /more/* — this listing link must never be discovered/fetched. -->
+            <div class="group-brt-terkini">
+                <div class="subgroup">
+                    <a href="https://news.okezone.com/more/latest-updates" class="img-section" aria-label="article-image"></a>
+                    <div class="desc-section">
+                        <a href="https://news.okezone.com/nasional" class="title-text" aria-labelledby="article kanal"><div></div>Nasional</a>
+                        <a href="https://news.okezone.com/more/latest-updates" class="desc-text" aria-labelledby="article title">Contoh Widget Live Update (robots-disallowed, bukan artikel)</a>
+                        <a class="time-text" aria-labelledby="article time">24 Juli 2026 14:40:00</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="pagination-indexs">
+        <a href="https://news.okezone.com/indeks/2026/07/24/10">2</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Fixture for the secondary discovery channel (see src/adapters/media_indonesia/index.js
+  module header "Discovery, secondary"). Shaped after the standard Google News Sitemap schema
+  (https://developers.google.com/search/docs/crawling-indexing/sitemaps/news-sitemap) — the
+  exact live path/shape was not independently confirmed during this assessment, so this fixture
+  is a synthetic-but-schema-correct sample used to exercise extractSitemapUrls() offline.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>https://mediaindonesia.com/jelita/900007/contoh-artikel-dari-sitemap-news</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Media Indonesia</news:name>
+        <news:language>id</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-24T13:05:00+07:00</news:publication_date>
+      <news:title>Contoh Artikel dari Sitemap News</news:title>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://mediaindonesia.com/ekonomi/900002/contoh-judul-berita-media-indonesia-kedua</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Media Indonesia</news:name>
+        <news:language>id</news:language>
+      </news:publication>
+      <news:publication_date>2026-07-24T16:12:00+07:00</news:publication_date>
+      <news:title>Contoh Judul Berita Media Indonesia Kedua</news:title>
+    </news:news>
+  </url>
+  <url>
+    <!-- Non-article entry (category root) — must be filtered out by isArticleUrl(). -->
+    <loc>https://mediaindonesia.com/ekonomi</loc>
+    <lastmod>2026-07-24T16:00:00+07:00</lastmod>
+  </url>
+</urlset>

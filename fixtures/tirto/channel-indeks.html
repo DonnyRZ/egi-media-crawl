@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+  Trimmed offline fixture reproducing the REAL markup shape of Tirto's `/indeks` listing
+  (verified live 2026-07-24 against https://tirto.id/indeks — a single page that already
+  mixes every channel, used as the sole discovery source; see src/adapters/tirto/index.js
+  header comment on why no `?next=`-based pagination is ever attempted, per robots.txt).
+
+  Content below is entirely fictional placeholder text ("Contoh Judul...", following the
+  same convention as fixtures/cnn_indonesia and fixtures/liputan6) — only the CSS classes
+  and element nesting mirror the real site. The last `.postcard` intentionally links to a
+  tirto.id section-root-shaped URL that discover() must never surface (isArticleUrl()
+  rejects it) even if it were ever mistakenly rendered inside a `.postcard`.
+-->
+<html lang="id">
+<head><meta charset="utf-8"><title>Indeks Artikel - Tirto.id</title></head>
+<body>
+<div class="page-section">
+  <div class="postcard postcard-regular">
+    <div class="postcard-img"><div class="thumbnail thumbnail-wide"><img src="https://mmc.tirto.id/image/otf/433x0/contoh-1.jpg" alt="" loading="lazy"></div></div>
+    <div class="postcard-caption">
+      <div class="postcard-meta">
+        <div class="postcard-label">Ekonomi </div>
+        <div class="postcard-timestamp">27 menit lalu</div>
+      </div>
+      <h3 class="postcard-title"><a href="https://tirto.id/contoh-judul-berita-tirto-pertama-hzAA" class="ulink" role="button">Contoh Judul Berita Tirto Pertama</a></h3>
+    </div>
+  </div>
+  <div class="postcard postcard-regular">
+    <div class="postcard-img"><div class="thumbnail thumbnail-wide"><img src="https://mmc.tirto.id/image/otf/433x0/contoh-2.jpg" alt="" loading="lazy"></div></div>
+    <div class="postcard-caption">
+      <div class="postcard-meta">
+        <div class="postcard-label">Politik </div>
+        <div class="postcard-timestamp">1 jam lalu</div>
+      </div>
+      <h3 class="postcard-title"><a href="https://tirto.id/contoh-judul-berita-tirto-kedua-hzBB" class="ulink" role="button">Contoh Judul Berita Tirto Kedua</a></h3>
+    </div>
+  </div>
+  <div class="postcard postcard-regular">
+    <div class="postcard-img"><div class="thumbnail thumbnail-wide"><img src="https://mmc.tirto.id/image/otf/433x0/contoh-3.jpg" alt="" loading="lazy"><div class="postcard-video-icon"></div></div></div>
+    <div class="postcard-caption">
+      <div class="postcard-meta">
+        <div class="postcard-label">Video Youtube </div>
+        <div class="postcard-timestamp">2 jam lalu</div>
+      </div>
+      <h3 class="postcard-title"><a href="https://tirto.id/contoh-judul-berita-tirto-video-hzCC" class="ulink" role="button">Contoh Judul Berita Tirto dengan Video</a></h3>
+    </div>
+  </div>
+  <div class="postcard postcard-regular">
+    <div class="postcard-caption">
+      <div class="postcard-meta">
+        <div class="postcard-label">Bisnis </div>
+        <div class="postcard-timestamp">Rabu, 22 Juli</div>
+      </div>
+      <h3 class="postcard-title"><a href="https://tirto.id/bisnis-tirto" class="ulink" role="button">Bisnis</a></h3>
+    </div>
+  </div>
+</div>
+</body>
+</html>

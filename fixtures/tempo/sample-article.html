@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<!--
+  Offline fixture reproducing the REAL markup shape of a Tempo.co (www.tempo.co) article page
+  (verified live 2026-07-24 via direct HTTP fetches of several real free articles, e.g.
+  https://www.tempo.co/ekonomi/trump-umumkan-tarif-impor-baru-ke-60-negara-2277913 — see
+  src/adapters/tempo/index.js header comment for the full field matrix).
+
+  Content below is entirely fictional placeholder text ("Contoh ..."), only the structure
+  (JSON-LD shape, meta tags, DOM ids/classes) mirrors the real site.
+
+  Three things this fixture is specifically built to prove:
+  1. Tempo IS a rare case among this repo's adapters that ships a full `articleBody` string
+     directly inside JSON-LD `NewsArticle` (verified live) -- unlike detik/CNN/Liputan6/Tirto/
+     Kumparan, which all carry metadata-only JSON-LD. The DOM `#content-wrapper` paragraphs are
+     the primary body source regardless (matches JSON-LD 1:1 live, but preserves inline `<a>`
+     links/formatting that the plain-text `articleBody` string does not).
+  2. A trailing "Pilihan Editor: <link>" paragraph (a related-article pick, not real body
+     content -- verified live on every sampled article) must be stripped from content_text,
+     same noise-stripping spirit as Tirto's "Baca juga" / CNN's "Lihat Juga".
+  3. `isAccessibleForFree: true` in JSON-LD (cross-checked against the tag widget / byline DOM)
+     marks this specific fixture as a FREE article on purpose, per the task brief ("avoid Tempo
+     Plus hard-lock samples for fixtures") -- see `smoke-test.js` for a second, inline HTML
+     string covering the Tempo Plus (`isAccessibleForFree: false`, truncated body) case instead
+     of shipping a second full fixture file for it.
+-->
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Contoh Bank Sentral Umumkan Kenaikan Suku Bunga Acuan | tempo.co</title>
+  <meta name="description" content="Kebijakan suku bunga acuan baru berlaku mulai pekan depan menurut contoh keterangan resmi.">
+  <meta property="og:locale" content="id_ID">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Tempo">
+  <meta property="og:title" content="Contoh Bank Sentral Umumkan Kenaikan Suku Bunga Acuan">
+  <meta property="og:url" content="https://www.tempo.co/ekonomi/contoh-bank-sentral-umumkan-kenaikan-suku-bunga-acuan-9100001">
+  <meta property="og:description" content="Kebijakan suku bunga acuan baru berlaku mulai pekan depan menurut contoh keterangan resmi.">
+  <meta property="og:image" content="https://statik.tempo.co/data/2026/07/24/id_9100001/9100001_720.jpg">
+  <meta property="og:image:width" content="720">
+  <meta property="og:image:height" content="405">
+  <meta property="article:published_time" content="24 Juli 2026 | 09.00 WIB">
+  <link rel="canonical" href="https://www.tempo.co/ekonomi/contoh-bank-sentral-umumkan-kenaikan-suku-bunga-acuan-9100001">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"NewsArticle","headline":"Contoh Bank Sentral Umumkan Kenaikan Suku Bunga Acuan","description":"Kebijakan suku bunga acuan baru berlaku mulai pekan depan menurut contoh keterangan resmi.","image":"https://statik.tempo.co/data/2026/07/24/id_9100001/9100001_720.jpg","datePublished":"2026-07-24T09:00:00+07:00","isAccessibleForFree":true,"articleBody":"CONTOH bank sentral pada Kamis, 23 Juli 2026 mengumumkan kenaikan suku bunga acuan sebesar 25 basis poin, berlaku efektif mulai pekan depan menurut contoh keterangan resmi.\nKeputusan itu diambil setelah rapat dewan gubernur mempertimbangkan tekanan inflasi dan stabilitas nilai tukar dalam beberapa contoh bulan terakhir.\n\"Contoh kebijakan ini bersifat pre-emptive dan forward looking,\" kata Gubernur contoh bank sentral, Contoh Reporter, dalam keterangan tertulis.\nPelaku pasar contoh menilai langkah ini sejalan dengan ekspektasi pasar sehingga dampak jangka pendek terhadap pasar obligasi contoh diperkirakan terbatas.\nPilihan Editor: Contoh Analisis Tempo Plus Soal Arah Kebijakan Moneter","author":[{"@type":"Person","name":"Contoh Reporter","url":"https://www.tempo.co/penulis/contoh-reporter-9001"},{"@type":"Person","name":"Contoh Reporter","url":"https://www.tempo.co/penulis/contoh-reporter-9001"}],"publisher":{"@type":"Organization","name":"PT Tempo Inti Media","logo":{"@type":"ImageObject","url":"https://tempo.co/logo.png"}},"mainEntityOfPage":{"@type":"WebPage","@id":"https://www.tempo.co/ekonomi/contoh-bank-sentral-umumkan-kenaikan-suku-bunga-acuan-9100001"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tempo.co"},{"@type":"ListItem","position":2,"name":"Ekonomi","item":"https://tempo.co/ekonomi"},{"@type":"ListItem","position":3,"name":"Bisnis","item":"https://tempo.co/ekonomi/bisnis"}]}</script>
+</head>
+<body>
+  <article>
+    <h1 class="text-[26px] font-bold leading-[122%] text-neutral-1200">Contoh Bank Sentral Umumkan Kenaikan Suku Bunga Acuan</h1>
+    <p class="text-neutral-900 text-sm">24 Juli 2026 | 09.00 WIB</p>
+    <div>
+      <a href="/penulis/contoh-reporter-9001"><img src="https://statik.tempo.co/avatar/contoh-reporter.jpg" alt=""></a>
+      <a href="/penulis/contoh-reporter-9001">Contoh Reporter</a>
+    </div>
+
+    <figure>
+      <img src="https://statik.tempo.co/data/2026/07/24/id_9100001/9100001_720.jpg" alt="Contoh Bank Sentral Umumkan Kenaikan Suku Bunga Acuan">
+      <figcaption>Contoh ilustrasi gedung bank sentral dipotret pada Juli 2026. Dok. Fixture/EGI</figcaption>
+    </figure>
+
+    <div id="content-wrapper" class="max-lg:container xl">
+      <p>CONTOH bank sentral pada Kamis, 23 Juli 2026 mengumumkan kenaikan <a href="https://www.tempo.co/tag/suku-bunga-acuan">suku bunga acuan</a> sebesar 25 basis poin, berlaku efektif mulai pekan depan menurut contoh keterangan resmi.</p>
+    </div>
+    <div id="ads-slot-1"></div>
+    <div id="content-wrapper" class="max-lg:container xl">
+      <p>Keputusan itu diambil setelah rapat dewan gubernur mempertimbangkan tekanan inflasi dan stabilitas nilai tukar dalam beberapa contoh bulan terakhir.</p>
+    </div>
+    <div class="bg-neutral-200 w-full text-center border-2 border-neutral-300 border-b-0 p-3">
+      <p class="text-neutral-900 text-xs flex gap-2 justify-center">Scroll ke bawah untuk melanjutkan membaca</p>
+    </div>
+    <div id="content-wrapper" class="max-lg:container xl">
+      <p>&#34;Contoh kebijakan ini bersifat pre-emptive dan forward looking,&#34; kata Gubernur <a href="https://www.tempo.co/tag/bank-sentral">contoh bank sentral</a>, Contoh Reporter, dalam keterangan tertulis.</p>
+    </div>
+    <div id="ads-slot-2"></div>
+    <div id="content-wrapper" class="max-lg:container xl">
+      <p>Pelaku pasar contoh menilai langkah ini sejalan dengan ekspektasi pasar sehingga dampak jangka pendek terhadap pasar obligasi contoh diperkirakan terbatas.</p>
+    </div>
+    <div id="content-wrapper" class="max-lg:container xl">
+      <p>Pilihan Editor: <a href="https://www.tempo.co/ekonomi/contoh-analisis-tempo-plus-soal-arah-kebijakan-moneter-9100003">Contoh Analisis Tempo Plus Soal Arah Kebijakan Moneter</a></p>
+    </div>
+
+    <div class="container lg:w-full lg:mx-0 lg:px-0 gap-4 flex flex-wrap">
+      <div><a href="/tag/suku-bunga-acuan" class="bg-primary-surface rounded p-2"><span class="text-primary-main font-medium">suku-bunga-acuan</span></a></div>
+      <div><a href="/tag/bank-sentral" class="bg-primary-surface rounded p-2"><span class="text-primary-main font-medium">bank-sentral</span></a></div>
+      <div><a href="/tag/ekonomi-makro" class="bg-primary-surface rounded p-2"><span class="text-primary-main font-medium">ekonomi-makro</span></a></div>
+    </div>
+  </article>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Offline fixture reproducing the REAL markup shape of a merdeka.com per-section Google
+  News sitemap (verified live 2026-07-24 via direct HTTP fetch against
+  https://www.merdeka.com/peristiwa/sitemap.xml, itself one entry of the sitemap INDEX at
+  https://www.merdeka.com/sitemap.xml, advertised in robots.txt — see
+  src/adapters/merdeka/index.js module header "Discovery" notes).
+
+  This is the SECONDARY discovery channel (per task brief): unlike the category hub listing
+  (`listing-peristiwa.html`, whose own `<time>` sibling always ships an empty `datetime=""`),
+  every `<url>` entry here carries a real tz-explicit `news:publication_date`, a `news:title`,
+  and a `news:keywords` array (JSON-encoded string, verified live) — used to backfill
+  `published_hint`/`title_hint`/`category_hint`-adjacent tag data for items the hub's first
+  page doesn't (yet) surface, and to supply a real `published_hint` for items BOTH channels see
+  (dedup keeps the hub-sourced item's identity/discoveryChannel, but the sitemap's date can
+  still be cross-checked). Content below is fictional placeholder text ("Contoh ..."); only the
+  STRUCTURE (tag names/namespaces) mirrors the real site. Deliberately overlaps one URL
+  (article id 9000001) with `listing-peristiwa.html` to prove de-duplication, plus 3 URLs the
+  hub fixture does NOT contain, to prove the sitemap channel backfills additional items.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    <url>
+        <loc>https://www.merdeka.com/peristiwa/read/9000001/contoh-berita-trending-widget-satu</loc>
+        <changefreq><![CDATA[hourly]]></changefreq>
+        <news:news>
+            <news:publication>
+                <news:name>Merdeka.com</news:name>
+                <news:language>id</news:language>
+            </news:publication>
+            <news:publication_date>2026-07-24T16:34:20+07:00</news:publication_date>
+            <news:title><![CDATA[Contoh Berita Trending Widget Satu]]></news:title>
+            <news:keywords><![CDATA[["contoh topik satu","contoh"]]]></news:keywords>
+        </news:news>
+    </url>
+    <url>
+        <loc>https://www.merdeka.com/peristiwa/read/8999990/contoh-berita-sitemap-saja-satu</loc>
+        <changefreq><![CDATA[hourly]]></changefreq>
+        <news:news>
+            <news:publication>
+                <news:name>Merdeka.com</news:name>
+                <news:language>id</news:language>
+            </news:publication>
+            <news:publication_date>2026-07-24T09:12:05+07:00</news:publication_date>
+            <news:title><![CDATA[Contoh Berita Sitemap Saja Satu]]></news:title>
+            <news:keywords><![CDATA[["contoh topik dua","sitemap"]]]></news:keywords>
+        </news:news>
+    </url>
+    <url>
+        <loc>https://www.merdeka.com/peristiwa/read/8999980/contoh-berita-sitemap-saja-dua</loc>
+        <changefreq><![CDATA[hourly]]></changefreq>
+        <news:news>
+            <news:publication>
+                <news:name>Merdeka.com</news:name>
+                <news:language>id</news:language>
+            </news:publication>
+            <news:publication_date>2026-07-24T07:41:11+07:00</news:publication_date>
+            <news:title><![CDATA[Contoh Berita Sitemap Saja Dua]]></news:title>
+            <news:keywords><![CDATA[["contoh topik tiga"]]]></news:keywords>
+        </news:news>
+    </url>
+    <url>
+        <loc>https://www.merdeka.com/peristiwa/read/8999970/contoh-berita-sitemap-saja-tiga</loc>
+        <changefreq><![CDATA[hourly]]></changefreq>
+        <news:news>
+            <news:publication>
+                <news:name>Merdeka.com</news:name>
+                <news:language>id</news:language>
+            </news:publication>
+            <news:publication_date>2026-07-24T06:05:47+07:00</news:publication_date>
+            <news:title><![CDATA[Contoh Berita Sitemap Saja Tiga]]></news:title>
+            <news:keywords><![CDATA[["contoh topik empat"]]]></news:keywords>
+        </news:news>
+    </url>
+</urlset>
