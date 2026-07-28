@@ -428,3 +428,22 @@ npm run crawl:once -- --source=detik   # one-off fixture crawl pass, no Redis ne
 ## Contributing a new source
 
 Follow the onboarding process in `Reliable-News-Article-Scraping.md` (section 8): check robots/ToS, map the site, pick discovery channels, sample manually, write a source profile, add fixtures, shadow mode, then activate. Use `src/adapters/_template` as the starting point once adapters are implemented (F5).
+
+## Derived cross-media news events (S15-S18)
+
+The crawler contains a feature-flagged, lexical-only event aggregation pipeline.
+It reads article title/summary metadata and writes derived event snapshots only
+to the dedicated `egi_crawl` database. It does not use embeddings or an LLM and
+does not modify the editorial articles table. It is disabled by default:
+
+```bash
+npm run smoke:event-aggregation
+npm run smoke:event-worker
+npm run event:once
+npm run event:schedule
+```
+
+To enable a dry-run locally, set `EVENT_AGGREGATION_ENABLED=true` and leave
+`EVENT_AGGREGATION_DRY_RUN=true`. Read `docs/NEWS_EVENT_CONTRACT.md` and
+`docs/SPRINT15_18_QA.md` before applying the event migration or enabling
+persistence.

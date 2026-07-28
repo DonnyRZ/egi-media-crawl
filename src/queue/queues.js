@@ -34,6 +34,7 @@ const QUEUE_NAMES = {
   DISCOVER: 'crawl-discover',
   FETCH: 'crawl-fetch',
   PARSE: 'crawl-parse',
+  EVENT_AGGREGATION: 'crawl-event-aggregation',
 };
 
 const DEFAULT_JOB_OPTIONS = {
@@ -67,6 +68,10 @@ function getParseQueue() {
   return getQueue(QUEUE_NAMES.PARSE);
 }
 
+function getEventAggregationQueue() {
+  return getQueue(QUEUE_NAMES.EVENT_AGGREGATION);
+}
+
 async function closeQueues() {
   const open = Object.values(queues);
   for (const name of Object.keys(queues)) {
@@ -82,5 +87,6 @@ module.exports = {
   getDiscoverQueue,
   getFetchQueue,
   getParseQueue,
+  getEventAggregationQueue,
   closeQueues,
 };
