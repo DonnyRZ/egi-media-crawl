@@ -85,8 +85,8 @@ async function listCrawledArticles({ page, limit, sourceId = null, search = null
 }
 
 /**
- * Resolve a user-facing source filter ("Detik", "detik", "CNN Indonesia") to a
- * registered source_id, or null when the filter means "all sources".
+ * Resolve a user-facing source filter ("Detik", "EGI Media", "Viral") to a
+ * crawl `source_id`, or null when the filter means "all sources" (Viral / all).
  *
  * @param {string|null|undefined} raw
  * @returns {string|null}
@@ -94,16 +94,20 @@ async function listCrawledArticles({ page, limit, sourceId = null, search = null
 function resolveSourceIdFilter(raw) {
   if (raw == null) return null;
   const trimmed = String(raw).trim();
-  if (!trimmed || trimmed.toLowerCase() === 'all' || trimmed.toLowerCase() === 'egi media') {
+  if (!trimmed) return null;
+
+  const lower = trimmed.toLowerCase();
+  // Cross-outlet / Viral feed — no source filter.
+  if (lower === 'all' || lower === 'viral') {
     return null;
   }
 
-  const slug = trimmed
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/[^a-z0-9_]/g, '');
+  const slug = lower.replace(/\s+/g, '_').replace(/[^a-z0-9_]/g, '');
 
   const aliases = {
+    egi_media: 'egi_media',
+    egimedia: 'egi_media',
+    egi: 'egi_media',
     detik: 'detik',
     detikcom: 'detik',
     viva: 'viva',

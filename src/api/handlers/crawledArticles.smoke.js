@@ -11,8 +11,10 @@ const { parsePagination } = require('./crawledArticles');
 
 assert.strictEqual(resolveSourceIdFilter(null), null);
 assert.strictEqual(resolveSourceIdFilter(''), null);
-assert.strictEqual(resolveSourceIdFilter('EGI Media'), null);
 assert.strictEqual(resolveSourceIdFilter('all'), null);
+assert.strictEqual(resolveSourceIdFilter('Viral'), null);
+assert.strictEqual(resolveSourceIdFilter('EGI Media'), 'egi_media');
+assert.strictEqual(resolveSourceIdFilter('egi_media'), 'egi_media');
 assert.strictEqual(resolveSourceIdFilter('Detik'), 'detik');
 assert.strictEqual(resolveSourceIdFilter('VIVA'), 'viva');
 assert.strictEqual(resolveSourceIdFilter('CNN Indonesia'), 'cnn_indonesia');
