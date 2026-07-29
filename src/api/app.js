@@ -3,6 +3,7 @@
 const express = require('express');
 const cors = require('cors');
 const { getCrawledArticles, getHealth } = require('./handlers/crawledArticles');
+const { getViralPoc } = require('./handlers/viralPoc');
 
 /**
  * Default CMS origins allowed to call this read API.
@@ -52,6 +53,7 @@ function createApp() {
 
   app.get('/api/health', getHealth);
   app.get('/api/crawled-articles', getCrawledArticles);
+  app.get('/api/viral-poc', getViralPoc);
 
   app.use((_req, res) => {
     res.status(404).json({ success: false, error: { message: 'Not found' } });

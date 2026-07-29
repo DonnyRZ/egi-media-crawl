@@ -55,7 +55,11 @@ server.listen(PORT, HOST, () => {
   logEvent('api_listening', {
     host: HOST,
     port: typeof address === 'object' && address ? address.port : PORT,
-    endpoints: ['GET /api/health', 'GET /api/crawled-articles'],
+    endpoints: [
+      'GET /api/health',
+      'GET /api/crawled-articles',
+      'GET /api/viral-poc',
+    ],
   });
 });
 
