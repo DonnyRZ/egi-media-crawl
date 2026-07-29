@@ -22,7 +22,10 @@
     "stack:down": "docker compose down",
     "stack:ps": "docker compose ps",
     "dev:up": "node scripts/dev-up.js",
-    "smoke:shutdown": "node scripts/smoke-shutdown.js"
+    "smoke:shutdown": "node scripts/smoke-shutdown.js",
+    "smoke:crawled-articles-api": "node src/api/handlers/crawledArticles.smoke.js",
+    "api": "node src/api/server.js",
+    "api:dev": "nodemon src/api/server.js"
   },
   "author": "EGI Media",
   "license": "ISC",
@@ -30,11 +33,15 @@
     "axios": "^1.13.2",
     "bullmq": "^5.79.2",
     "cheerio": "^1.2.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "ioredis": "^5.11.1",
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
     "nodemon": "^3.1.11"
   }
 }

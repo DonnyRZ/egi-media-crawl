@@ -345,6 +345,24 @@ npm run report:check
 - Redis + BullMQ for queueing
 - `axios` for HTTP fetching
 - `dotenv` for configuration
+- Express + CORS for the **read-only** CMS API (`npm run api`)
+
+### Read API (CMS / Next.js)
+
+Lightweight Express server that exposes crawl rows without writing to the editorial DB:
+
+```bash
+npm run api          # http://localhost:5050
+npm run api:dev      # nodemon
+```
+
+| Endpoint | Query |
+|---|---|
+| `GET /api/health` | — |
+| `GET /api/crawled-articles` | `page`, `limit`, `source` (`detik` / `Detik` / …), `search` (title) |
+
+CORS defaults: `http://localhost:3000`, `https://staging.egi-media.com` (override with `CORS_ORIGINS`).
+Responses use the EGI read DTO aliases (`content`, `featured_image`, …) plus `article_id`.
 
 ## Project structure
 
