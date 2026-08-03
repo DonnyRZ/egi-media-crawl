@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node src/workers/index.js",
+    "api": "node src/api/server.js",
     "dev": "nodemon src/workers/index.js",
     "migrate": "node scripts/migrate.js",
     "crawl:once": "node scripts/crawl-once.js",
