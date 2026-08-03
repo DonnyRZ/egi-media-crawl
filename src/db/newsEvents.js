@@ -14,7 +14,7 @@ async function getAggregationArticles({ cutoffAt, maxArticles = 10000, db } = {}
             collected_at, published_at
        FROM articles
       WHERE collected_at >= $1
-      ORDER BY collected_at ASC, article_id ASC
+      ORDER BY collected_at DESC, article_id DESC
       LIMIT $2`,
     [cutoffAt, maxArticles]
   );
