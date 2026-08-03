@@ -43,6 +43,16 @@ function parseLimit(value) {
   return limit;
 }
 
+function parsePage(value) {
+  const page = value === null || value === '' ? 1 : Number(value);
+  if (!Number.isInteger(page) || page < 1) {
+    const error = new Error('page must be a positive integer');
+    error.status = 400;
+    throw error;
+  }
+  return page;
+}
+
 async function readIssues(windowHours, limit, db = pool) {
   const runResult = await db.query(
     `SELECT run_id, window_hours, algorithm_version, anchor_at, cutoff_at,
@@ -124,6 +134,50 @@ async function readIssues(windowHours, limit, db = pool) {
   };
 }
 
+async function readArticles({ page, limit, source, search, db = pool }) {
+  const offset = (page - 1) * limit;
+  const sourceFilter = source || null;
+  const searchFilter = search ? `%${search}%` : null;
+  const result = await db.query(
+    `SELECT a.article_id, a.title, a.summary, a.content_text,
+            a.thumbnail_url, a.published_at, a.author_name,
+            a.canonical_url, a.category, a.tags, a.language,
+            a.source_id, a.collected_at, s.display_name,
+            COUNT(*) OVER() AS total_count
+       FROM articles a
+       JOIN sources s ON s.source_id = a.source_id
+      WHERE a.validation_status = 'valid'
+        AND ($1::text IS NULL OR a.source_id = $1)
+        AND ($2::text IS NULL OR a.title ILIKE $2 OR COALESCE(a.summary, '') ILIKE $2)
+      ORDER BY COALESCE(a.published_at, a.collected_at) DESC, a.article_id DESC
+      LIMIT $3 OFFSET $4`,
+    [sourceFilter, searchFilter, limit, offset],
+  );
+  const total = result.rows.length ? Number(result.rows[0].total_count) : 0;
+  return {
+    items: result.rows.map((row) => ({
+      article_id: row.article_id,
+      title: row.title,
+      summary: row.summary,
+      content: row.content_text,
+      featured_image: row.thumbnail_url,
+      published_at: row.published_at,
+      author_name: row.author_name,
+      source_url: row.canonical_url,
+      category: row.category,
+      tags: Array.isArray(row.tags) ? row.tags : [],
+      language: row.language,
+      source_id: row.source_id,
+      source_label: row.display_name || row.source_id,
+      collected_at: row.collected_at,
+    })),
+    page,
+    limit,
+    total,
+    total_pages: Math.ceil(total / limit),
+  };
+}
+
 function createServer({ db = pool } = {}) {
   return http.createServer(async (req, res) => {
     if (req.method === 'OPTIONS') {
@@ -139,11 +193,30 @@ function createServer({ db = pool } = {}) {
       json(res, 200, { ok: true, service: 'egi-media-crawl-api' });
       return;
     }
-    if (req.method !== 'GET' || !['/api/v1/news-feed/viral', '/api/viral-poc'].includes(requestUrl.pathname)) {
+    const isViralPath = ['/api/v1/news-feed/viral', '/api/viral-poc'].includes(requestUrl.pathname);
+    const isArticlesPath = ['/api/v1/news-feed/articles', '/api/crawled-articles'].includes(requestUrl.pathname);
+    if (req.method !== 'GET' || (!isViralPath && !isArticlesPath)) {
       json(res, 404, { success: false, data: '', message: 'Not found', code: 404 });
       return;
     }
     try {
+      if (isArticlesPath) {
+        const page = parsePage(requestUrl.searchParams.get('page'));
+        const limit = parseLimit(requestUrl.searchParams.get('limit'));
+        json(res, 200, {
+          success: true,
+          data: await readArticles({
+            page,
+            limit,
+            source: requestUrl.searchParams.get('source'),
+            search: requestUrl.searchParams.get('search'),
+            db,
+          }),
+          message: 'Crawled articles loaded',
+          code: 200,
+        });
+        return;
+      }
       const windowHours = parseWindow(requestUrl.searchParams.get('window_hours'));
       const limit = parseLimit(requestUrl.searchParams.get('limit'));
       json(res, 200, {
@@ -172,4 +245,4 @@ if (require.main === module) {
   process.on('SIGTERM', () => void shutdown());
 }
 
-module.exports = { createServer, readIssues, parseWindow, parseLimit };
+module.exports = { createServer, readIssues, readArticles, parseWindow, parseLimit, parsePage };
