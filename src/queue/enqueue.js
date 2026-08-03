@@ -1,7 +1,7 @@
 'use strict';
 
 const crypto = require('crypto');
-const { getDiscoverQueue, getFetchQueue, getParseQueue } = require('./queues');
+const { getDiscoverQueue, getFetchQueue, getParseQueue, getEventAggregationQueue } = require('./queues');
 
 /**
  * Job payload shapes
@@ -132,8 +132,20 @@ async function enqueueParse(payload = {}, opts = {}) {
   );
 }
 
+/** Enqueue one bounded batch event aggregation run. */
+async function enqueueEventAggregation(opts = {}) {
+  const queue = getEventAggregationQueue();
+  const runKey = opts.runKey || new Date().toISOString();
+  return queue.add(
+    'aggregate-events',
+    { runKey, enqueuedAt: new Date().toISOString(), dryRun: opts.dryRun },
+    { jobId: buildJobId('event-aggregation', runKey), ...opts.jobOptions }
+  );
+}
+
 module.exports = {
   enqueueDiscover,
   enqueueFetch,
   enqueueParse,
+  enqueueEventAggregation,
 };

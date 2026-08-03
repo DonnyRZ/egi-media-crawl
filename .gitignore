@@ -30,6 +30,7 @@ temp/
 coverage/
 dist/
 build/
+replay_vps_snapshot_event_result.json
 
 # Docker / local volume leftovers
 *.sql.gz

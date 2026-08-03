@@ -10,6 +10,7 @@ const { closePool } = require('../db');
 const { handleDiscover } = require('./handlers/discover');
 const { handleFetch } = require('./handlers/fetch');
 const { handleParse } = require('./handlers/parse');
+const { handleEventAggregation } = require('./handlers/eventAggregation');
 
 // Basic concurrency config via env, e.g. WORKER_CONCURRENCY=2.
 // Applies to every stage worker (discover/fetch/parse) in this process.
@@ -72,10 +73,18 @@ async function handleParseJob(job) {
   return result;
 }
 
+async function handleEventAggregationJob(job) {
+  log('event_aggregation_job_received', { jobId: job.id, runKey: job.data && job.data.runKey });
+  const result = await handleEventAggregation(job, { log });
+  log('event_aggregation_job_done', { jobId: job.id, ...result });
+  return result;
+}
+
 const HANDLERS = {
   [QUEUE_NAMES.DISCOVER]: handleDiscoverJob,
   [QUEUE_NAMES.FETCH]: handleFetchJob,
   [QUEUE_NAMES.PARSE]: handleParseJob,
+  [QUEUE_NAMES.EVENT_AGGREGATION]: handleEventAggregationJob,
 };
 
 function createWorker(queueName, handler) {
