@@ -232,10 +232,17 @@ function createServer({ db = pool } = {}) {
   });
 }
 
+function listenHost() {
+  if (process.env.API_HOST) return process.env.API_HOST;
+  // Railway injects PORT. Default 127.0.0.1 would make this API unreachable from other services.
+  if (process.env.PORT) return '0.0.0.0';
+  return DEFAULT_HOST;
+}
+
 if (require.main === module) {
   const server = createServer();
-  const host = process.env.API_HOST || DEFAULT_HOST;
-  const port = Number(process.env.API_PORT || DEFAULT_PORT);
+  const host = listenHost();
+  const port = Number(process.env.PORT || process.env.API_PORT || DEFAULT_PORT);
   server.listen(port, host, () => console.log(JSON.stringify({ event: 'api_started', host, port })));
   const shutdown = async () => {
     server.close();

@@ -17,6 +17,7 @@ let sharedConnection = null;
  */
 function createConnection(overrides = {}) {
   return new IORedis(REDIS_URL, {
+    family: 0, // Railway private Redis is IPv6; 0 = dual-stack (also fine locally)
     maxRetriesPerRequest: null,
     enableReadyCheck: false,
     ...overrides,
