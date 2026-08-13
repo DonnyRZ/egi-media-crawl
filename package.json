@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "start": "node src/workers/index.js",
+    "start:railway": "node scripts/railway-start-worker.js",
     "aggregation:worker": "node src/workers/eventAggregation.js",
     "api": "node src/api/server.js",
     "dev": "nodemon src/workers/index.js",
