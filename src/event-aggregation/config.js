@@ -17,6 +17,15 @@ function parseWindows(value = process.env.EVENT_AGGREGATION_WINDOWS) {
   return windows.length > 0 ? windows : DEFAULT_WINDOWS.slice();
 }
 
+const DEFAULT_KEEP_RUNS = 3;
+const DEFAULT_RETAIN_BATCH_SIZE = 8;
+
+function parseBoundedInt(value, fallback, min, max) {
+  const parsed = Number.parseInt(String(value), 10);
+  if (!Number.isInteger(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+}
+
 function getEventAggregationConfig(env = process.env) {
   return {
     enabled: parseBoolean(env.EVENT_AGGREGATION_ENABLED, false),
@@ -26,7 +35,17 @@ function getEventAggregationConfig(env = process.env) {
     intervalMinutes: Number.parseInt(env.EVENT_AGGREGATION_INTERVAL_MINUTES, 10) || 15,
     maxArticles: Number.parseInt(env.EVENT_AGGREGATION_MAX_ARTICLES, 10) || 10000,
     batchSize: Number.parseInt(env.EVENT_AGGREGATION_BATCH_SIZE, 10) || 5000,
+    keepRuns: parseBoundedInt(env.EVENT_AGGREGATION_KEEP_RUNS, DEFAULT_KEEP_RUNS, 1, 100),
+    retainBatchSize: parseBoundedInt(env.EVENT_AGGREGATION_RETAIN_BATCH_SIZE, DEFAULT_RETAIN_BATCH_SIZE, 1, 100),
   };
 }
 
-module.exports = { DEFAULT_WINDOWS, parseBoolean, parseWindows, getEventAggregationConfig };
+module.exports = {
+  DEFAULT_WINDOWS,
+  DEFAULT_KEEP_RUNS,
+  DEFAULT_RETAIN_BATCH_SIZE,
+  parseBoolean,
+  parseBoundedInt,
+  parseWindows,
+  getEventAggregationConfig,
+};

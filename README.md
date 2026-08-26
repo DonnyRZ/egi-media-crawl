@@ -441,6 +441,9 @@ npm run smoke:event-aggregation
 npm run smoke:event-worker
 npm run event:once
 npm run event:schedule
+npm run event:retain
+# dry-run by default; reclaim history with:
+# npm run event:retain -- --execute --keep=3 --batch=25
 ```
 
 To enable a dry-run locally, set `EVENT_AGGREGATION_ENABLED=true` and leave

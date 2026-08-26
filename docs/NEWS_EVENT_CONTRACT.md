@@ -53,6 +53,11 @@ anchor time, window, configuration, and algorithm version. Rerunning the same
 `run_key` is idempotent: the existing derived snapshot is replaced atomically,
 while the immutable `articles` table is never updated by event aggregation.
 
+Only the latest N succeeded snapshots are kept per window (default 3,
+`EVENT_AGGREGATION_KEEP_RUNS`). After a successful persist commits, older
+`event_runs` rows are deleted in small batches; `ON DELETE CASCADE` removes
+`news_events` and `news_event_articles`. Retention never deletes `articles`.
+
 ## Resource and safety rules
 
 - The engine reads only `title`, `summary`, `source_id`, `collected_at`, and

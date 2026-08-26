@@ -49,7 +49,7 @@ async function main() {
     const result = await pool.query(articleSql, [sourceId, `https://example.invalid/event-smoke/${number}`, number === 1 ? 'KPK Tangkap Arman dalam Korupsi Cakra' : 'Arman Ditangkap KPK Terkait Korupsi Cakra', collected, `smoke-hash-${number}`, 'KPK menangkap Arman dalam kasus Cakra']);
     articleIds.push(result.rows[0].article_id);
   }
-  const config = { enabled: true, dryRun: false, windows: [24], algorithmVersion: 'lexical-v1', maxArticles: 10, batchSize: 10 };
+  const config = { enabled: true, dryRun: false, windows: [24], algorithmVersion: 'lexical-v1', maxArticles: 10, batchSize: 10, keepRuns: 3, retainBatchSize: 8 };
   const deps = {
     config,
     getLatestCollectedAt: () => getLatestCollectedAt({ db: pool }),
