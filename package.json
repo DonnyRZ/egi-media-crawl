@@ -5,6 +5,12 @@
   "main": "src/workers/index.js",
   "private": true,
   "scripts": {
+    "test:radar": "node --test tests/radar.test.js",
+    "radar:once": "node scripts/radar-once.js",
+    "radar:validate": "node scripts/radar-validate-sources.js --live",
+    "radar:benchmark": "node scripts/radar-benchmark.js",
+    "radar:evaluate": "node scripts/radar-evaluate.js",
+    "radar:perf": "node scripts/radar-perf.js",
     "start": "node src/workers/index.js",
     "start:railway": "node scripts/railway-start-worker.js",
     "aggregation:worker": "node src/workers/eventAggregation.js",
@@ -42,7 +48,7 @@
   "author": "EGI Media",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.13.2",
+    "axios": "1.20.0",
     "bullmq": "^5.79.2",
     "cheerio": "^1.2.0",
     "dotenv": "^17.2.3",
@@ -51,5 +57,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.11"
+  },
+  "overrides": {
+    "undici": "7.29.1"
   }
 }

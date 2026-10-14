@@ -85,12 +85,14 @@ async function findRecentlySeenUrls(sourceId, normalizedUrls, windowHours) {
   const { rows } = await query(
     `
     SELECT DISTINCT normalized_url
-    FROM discovered_urls
+    FROM processing_status
     WHERE source_id = $1
       AND normalized_url = ANY($2::text[])
-      AND last_discovered_at > NOW() - ($3::numeric * INTERVAL '1 hour')
+      AND (status IN ('stored','duplicate','invalid','ignored_by_policy')
+        OR (status IN ('queued','fetching','fetched','parsed','retry_scheduled') AND status_updated_at>NOW()-INTERVAL '30 minutes')
+        OR (status IN ('blocked','dead_letter') AND status_updated_at>NOW()-INTERVAL '6 hours'))
     `,
-    [sourceId, unique, windowHours]
+    [sourceId, unique]
   );
 
   return new Set(rows.map((r) => r.normalized_url));

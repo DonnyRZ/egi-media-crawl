@@ -6,6 +6,16 @@ const { getAggregationArticles, getLatestCollectedAt, persistAggregationResult }
 
 async function handleEventAggregation(job, deps = {}) {
   const config = deps.config || getEventAggregationConfig();
+  if (!deps.config && require('../../radar/cohort').enabled()) {
+    // Candidate is persisted alongside legacy snapshots, never switched implicitly.
+    try {
+      const candidate = await require('../../radar/worker').shadowRadar({windows:config.windows});
+      if (deps.log) deps.log('radar_shadow_done',candidate);
+    } catch(error) {
+      if(deps.log)deps.log('radar_shadow_failed',{error:error.message});
+      // A candidate failure must not prevent the legacy snapshot from refreshing.
+    }
+  }
   if (!config.enabled) return { ok: true, skipped: true, reason: 'disabled' };
   const latest = await (deps.getLatestCollectedAt || getLatestCollectedAt)();
   if (!latest) return { ok: true, skipped: true, reason: 'no_articles' };

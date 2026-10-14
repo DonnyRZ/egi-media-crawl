@@ -144,8 +144,10 @@ function isArticleUrl(url, ctx) {
  * @returns {Promise<import('../../core/types').DiscoveryItem[]>}
  */
 async function discover(ctx) {
-  const { items } = await rawSuara.discover(ctx);
-  return items.map(toCoreDiscoveryItem);
+  const { items, complete } = await rawSuara.discover(ctx);
+  const mapped=items.map(toCoreDiscoveryItem);
+  Object.defineProperty(mapped,'complete',{value:complete===true});
+  return mapped;
 }
 
 /**

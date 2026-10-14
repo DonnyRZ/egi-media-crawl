@@ -53,7 +53,9 @@ function loadAllSources() {
  * @returns {RegistryEntry[]} only sources whose profile.enabled === true
  */
 function loadEnabledSources() {
-  return loadAllSources().filter((entry) => entry.profile.enabled);
+  const radar=require('../radar/cohort');
+  const allowed=radar.enabled() ? new Set(radar.loadCohort().sources.filter(s=>s.active).map(s=>s.id)) : null;
+  return loadAllSources().filter((entry) => entry.profile.enabled && (!allowed||allowed.has(entry.sourceId)));
 }
 
 /**

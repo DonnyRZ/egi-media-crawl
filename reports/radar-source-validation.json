@@ -1,0 +1,194 @@
+{
+  "at": "2026-10-14T07:56:09.784Z",
+  "cohortVersion": "e7f57ccf8e4a32bc149c",
+  "location": "local development network",
+  "productionUntouched": true,
+  "results": [
+    {
+      "sourceId": "beritasatu",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 100,
+      "datedCount": 80,
+      "partialFailure": null,
+      "durationMs": 878,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "cnn_indonesia",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 10,
+      "datedCount": 10,
+      "partialFailure": null,
+      "durationMs": 369,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "detik",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 18,
+      "datedCount": 0,
+      "partialFailure": null,
+      "durationMs": 263,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "idn_times",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 19,
+      "datedCount": 19,
+      "partialFailure": null,
+      "durationMs": 450,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "jawa_pos",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 100,
+      "datedCount": 100,
+      "partialFailure": null,
+      "durationMs": 2611,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "liputan6",
+      "channel": "politics",
+      "desks": [
+        "politics"
+      ],
+      "state": "reachable",
+      "listingCount": 14,
+      "datedCount": 14,
+      "partialFailure": null,
+      "durationMs": 487,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "liputan6",
+      "channel": "business",
+      "desks": [
+        "business"
+      ],
+      "state": "reachable",
+      "listingCount": 14,
+      "datedCount": 14,
+      "partialFailure": null,
+      "durationMs": 707,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "liputan6",
+      "channel": "technology",
+      "desks": [
+        "technology"
+      ],
+      "state": "reachable",
+      "listingCount": 14,
+      "datedCount": 14,
+      "partialFailure": null,
+      "durationMs": 823,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "liputan6",
+      "channel": "sports",
+      "desks": [
+        "sports"
+      ],
+      "state": "reachable",
+      "listingCount": 12,
+      "datedCount": 12,
+      "partialFailure": null,
+      "durationMs": 966,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "liputan6",
+      "channel": "entertainment",
+      "desks": [
+        "entertainment"
+      ],
+      "state": "reachable",
+      "listingCount": 14,
+      "datedCount": 14,
+      "partialFailure": null,
+      "durationMs": 1054,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "merdeka",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 100,
+      "datedCount": 80,
+      "partialFailure": null,
+      "durationMs": 409,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "okezone",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 25,
+      "datedCount": 25,
+      "partialFailure": null,
+      "durationMs": 1572,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "republika",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 50,
+      "datedCount": 0,
+      "partialFailure": null,
+      "durationMs": 340,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "sindonews",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 20,
+      "datedCount": 20,
+      "partialFailure": null,
+      "durationMs": 125,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "suara",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 27,
+      "datedCount": 27,
+      "partialFailure": null,
+      "durationMs": 432,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    },
+    {
+      "sourceId": "viva",
+      "channel": "existing-index",
+      "desks": [],
+      "state": "reachable",
+      "listingCount": 30,
+      "datedCount": 25,
+      "partialFailure": null,
+      "durationMs": 301,
+      "note": "Reachability is not proof of pagination or complete desk coverage; requires channel review."
+    }
+  ]
+}

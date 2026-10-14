@@ -87,7 +87,9 @@ function listSchedulableSources() {
 
   return requested.filter((sourceId) => {
     const entry = requireSource(sourceId);
-    return entry.profile.enabled !== false;
+    const radar=require('../radar/cohort');
+    const enrolled=!radar.enabled() || radar.loadCohort().sources.some(s=>s.id===sourceId && s.active);
+    return entry.profile.enabled !== false && enrolled;
   });
 }
 

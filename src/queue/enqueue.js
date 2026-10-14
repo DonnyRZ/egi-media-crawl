@@ -101,6 +101,8 @@ async function enqueueFetch(payload = {}, opts = {}) {
       // job, matching the "at-least-once discovery, idempotent processing"
       // principle from the crawl playbook.
       jobId: buildJobId('fetch', sourceId, url),
+      removeOnComplete: true,
+      removeOnFail: true,
       ...opts.jobOptions,
     }
   );

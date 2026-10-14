@@ -152,6 +152,7 @@ async function fetchArticleHtml(sourceId, url) {
     timeout: 15000,
     validateStatus: () => true,
     responseType: 'text',
+    maxContentLength: 4*1024*1024,
   });
 
   return {

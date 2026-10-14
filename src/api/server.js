@@ -5,6 +5,8 @@ require('dotenv').config();
 const http = require('node:http');
 const { URL } = require('node:url');
 const pool = require('../db/pool');
+const radarApi = require('../radar/api');
+const { available: serveRadar } = require('../radar/cohort');
 
 const DEFAULT_PORT = 5050;
 const DEFAULT_HOST = '127.0.0.1';
@@ -45,7 +47,7 @@ function parseLimit(value) {
 
 function parsePage(value) {
   const page = value === null || value === '' ? 1 : Number(value);
-  if (!Number.isInteger(page) || page < 1) {
+  if (!Number.isSafeInteger(page) || page < 1 || page > 1000000) {
     const error = new Error('page must be a positive integer');
     error.status = 400;
     throw error;
@@ -53,7 +55,7 @@ function parsePage(value) {
   return page;
 }
 
-async function readIssues(windowHours, limit, db = pool) {
+async function readIssues(windowHours, limit, db = pool, {page=1,search=''} = {}) {
   const runResult = await db.query(
     `SELECT run_id, window_hours, algorithm_version, anchor_at, cutoff_at,
             article_count, event_count, finished_at
@@ -81,7 +83,10 @@ async function readIssues(windowHours, limit, db = pool) {
             nea.article_id, nea.match_score,
             a.title, a.canonical_url, a.normalized_url, a.thumbnail_url,
             a.published_at, a.collected_at, s.source_id, s.display_name
-       FROM news_events ne
+       FROM (SELECT * FROM news_events WHERE run_id=$1
+             AND ($4::text IS NULL OR representative_title ILIKE '%'||$4||'%')
+             ORDER BY media_count DESC,article_count DESC,event_id
+             LIMIT $2 OFFSET $3) ne
        JOIN news_event_articles nea
          ON nea.run_id = ne.run_id AND nea.event_id = ne.event_id
        JOIN articles a ON a.article_id = nea.article_id
@@ -89,7 +94,7 @@ async function readIssues(windowHours, limit, db = pool) {
       WHERE ne.run_id = $1
       ORDER BY ne.media_count DESC, ne.article_count DESC,
                ne.event_id ASC, COALESCE(a.published_at, a.collected_at) DESC`,
-    [run.run_id],
+    [run.run_id, limit, (page-1)*limit, search||null],
   );
   const byEvent = new Map();
   for (const row of result.rows) {
@@ -120,8 +125,11 @@ async function readIssues(windowHours, limit, db = pool) {
     });
   }
 
+  const count = await db.query(`SELECT COUNT(*)::int AS total FROM news_events WHERE run_id=$1
+    AND ($2::text IS NULL OR representative_title ILIKE '%'||$2||'%')`, [run.run_id,search||null]);
   return {
-    items: Array.from(byEvent.values()).slice(0, limit),
+    items: Array.from(byEvent.values()),
+    page, limit, total: count.rows[0].total, total_pages: Math.ceil(count.rows[0].total/limit),
     meta: {
       windowHours,
       availability: 'ready',
@@ -130,6 +138,8 @@ async function readIssues(windowHours, limit, db = pool) {
       clusterCount: Number(run.event_count),
       runId: String(run.run_id),
       finishedAt: run.finished_at,
+      asOf: run.anchor_at,
+      stale: Date.now() - new Date(run.anchor_at).getTime() > 30*60000,
     },
   };
 }
@@ -195,11 +205,39 @@ function createServer({ db = pool } = {}) {
     }
     const isViralPath = ['/api/v1/news-feed/viral', '/api/viral-poc'].includes(requestUrl.pathname);
     const isArticlesPath = ['/api/v1/news-feed/articles', '/api/crawled-articles'].includes(requestUrl.pathname);
-    if (req.method !== 'GET' || (!isViralPath && !isArticlesPath)) {
+    const radarPath = requestUrl.pathname === '/api/v1/news-feed/status' || /^\/api\/v1\/news-feed\/recommendations(?:\/[^/]+)?$/.test(requestUrl.pathname);
+    if (req.method !== 'GET' || (!isViralPath && !isArticlesPath && !radarPath)) {
       json(res, 404, { success: false, data: '', message: 'Not found', code: 404 });
       return;
     }
     try {
+      if (radarPath) {
+        // The CMS proxy authenticates roles. Direct candidate API is loopback-only
+        // unless a service token is explicitly configured.
+        const token = process.env.CRAWL_API_TOKEN;
+        const remote = req.socket.remoteAddress;
+        if (token ? req.headers.authorization !== `Bearer ${token}` : !['127.0.0.1','::1','::ffff:127.0.0.1'].includes(remote)) {
+          json(res,403,{success:false,message:'CMS service authentication required',code:403});return;
+        }
+        const pathname = requestUrl.pathname;
+        const query = requestUrl.searchParams;
+        let data;
+        if (pathname.endsWith('/status')) data = await radarApi.status(db);
+        else {
+          const windowHours = query.has('window_hours') ? parseWindow(query.get('window_hours')) : 24;
+          const page = parsePage(query.get('page'));
+          const limit = query.has('limit') ? parseLimit(query.get('limit')) : 20;
+          const options = {db,windowHours,page,limit,search:(query.get('search')||'').slice(0,200),category:query.get('category')||'',trend:query.get('trend')||''};
+          if (!['','business','technology','politics','sports','entertainment','other'].includes(options.category) || !['','rising','falling','steady'].includes(options.trend)) throw Object.assign(new Error('Invalid category or trend'),{status:400});
+          if (pathname !== '/api/v1/news-feed/recommendations') {
+            const runId = query.get('run_id');
+            if (runId && !/^\d+$/.test(runId)) throw Object.assign(new Error('Invalid snapshot'),{status:400});
+            data = await radarApi.readDetail({...options,id:decodeURIComponent(pathname.split('/').pop()),runId});
+          } else if (query.get('engine') === 'candidate' || (serveRadar() && query.get('engine') !== 'legacy')) data = await radarApi.readRecommendations(options);
+          else data = {...await readIssues(windowHours,limit,db,{page,search:options.search}),method:'legacy'};
+        }
+        json(res,200,{success:true,data,message:'Editorial radar loaded',code:200});return;
+      }
       if (isArticlesPath) {
         const page = parsePage(requestUrl.searchParams.get('page'));
         const limit = parseLimit(requestUrl.searchParams.get('limit'));

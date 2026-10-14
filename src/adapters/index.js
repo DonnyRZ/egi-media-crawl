@@ -66,7 +66,18 @@ function getAdapter(sourceId) {
     const known = Object.keys(ADAPTER_MODULES).join(', ');
     throw new Error(`getAdapter: unknown sourceId "${sourceId}". Known adapters: ${known}`);
   }
-  return loader();
+  const adapter = loader();
+  return {...adapter, async discover(ctx={}) {
+    const items=await adapter.discover(ctx);
+    if(ctx.fixtureOnly || !(ctx.liveDiscover || process.env.CRAWL_LIVE==='true'))return items;
+    const real=items.filter(item=>!/fixture/i.test(item.channel||''));
+    if(real.length!==items.length) {
+      if(!real.length)throw new Error(`Live discovery unavailable for ${sourceId}; fixture fallback rejected`);
+      Object.defineProperty(real,'complete',{value:false});
+      Object.defineProperty(real,'partialFailure',{value:'fixture_channel_rejected'});
+    }
+    return real.length===items.length ? items : real;
+  }};
 }
 
 /**

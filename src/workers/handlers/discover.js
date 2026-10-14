@@ -62,7 +62,7 @@ async function handleDiscover(job, opts = {}) {
       ? getOverlapCutoffAt(overlapHours).toISOString()
       : undefined;
 
-  const discovered = await adapter.discover({
+  const context = {
     sourceId,
     sourceProfile: profile,
     fixtureOnly: !liveCrawl,
@@ -70,11 +70,15 @@ async function handleDiscover(job, opts = {}) {
     limit,
     overlapHours,
     overlapCutoffAt,
-  });
+  };
+  const radarEnabled=liveCrawl && require('../../radar/cohort').enabled();
+  const discovery=radarEnabled ? await require('../../radar/discovery').discoverRadar({sourceId,adapter,ctx:context,db:require('../../db/pool')}) : null;
+  if(discovery?.skipped)return {ok:true,sourceId,skipped:true,reason:'source_paused'};
+  const discovered=discovery ? discovery.items : await adapter.discover(context);
 
   // Defense-in-depth: cap here too even if the adapter's own discover() didn't fully
   // honor ctx.limit internally (see scripts/crawl-once.js for the same rationale).
-  const items = typeof limit === 'number' ? discovered.slice(0, limit) : discovered;
+  const items = radarEnabled ? discovered : typeof limit === 'number' ? discovered.slice(0, limit) : discovered;
 
   const normalizedKeys = items
     .filter((item) => item && item.url)
@@ -105,6 +109,7 @@ async function handleDiscover(job, opts = {}) {
     if (!item || !item.url) continue;
 
     const normalizedUrl = (item.metadata && item.metadata.normalizedUrlHint) || item.url;
+    if(liveCrawl && /fixture/i.test(item.channel||''))throw new Error('live_fixture_rejected');
     const skipFetch =
       recentlySeen.has(normalizedUrl) || enqueuedThisRun.has(normalizedUrl);
 
@@ -117,19 +122,21 @@ async function handleDiscover(job, opts = {}) {
         listingTitle: item.title_hint,
         publishedHint: item.published_hint,
       });
+      if(radarEnabled)await require('../../radar/store').recordObservation({sourceId,item,category:item.radar_category||item.category_hint});
 
       // Only stamp `discovered` when we are about to enqueue — otherwise rediscovery
       // would clobber a terminal stored/duplicate status for no new fetch work.
       if (!skipFetch) {
         await upsertProcessingStatus({
           sourceId,
-          normalizedUrl: item.url,
+          normalizedUrl,
           status: PROCESSING_STATUS.DISCOVERED,
           reason: `discovery_channel_${item.channel || 'unknown'}`,
         });
       }
     } catch (err) {
       log('discover_record_failed', { sourceId, url: item.url, error: err.message });
+      throw err;
     }
 
     if (skipFetch) {
@@ -138,6 +145,7 @@ async function handleDiscover(job, opts = {}) {
       continue;
     }
 
+    await upsertProcessingStatus({sourceId,normalizedUrl,status:PROCESSING_STATUS.QUEUED,reason:'fetch_enqueued'});
     await enqueueFetch({
       sourceId,
       url: item.url,

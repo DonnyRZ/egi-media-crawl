@@ -2,6 +2,10 @@
 
 const { fetchArticleHtml } = require('../lib/fetchHtml');
 const { enqueueParse } = require('../../queue/enqueue');
+const { UnrecoverableError } = require('bullmq');
+const { upsertProcessingStatus } = require('../../db/articles');
+const { normalizeUrl } = require('../../core/normalizeUrl');
+const cache = require('../lib/fetchCache');
 
 /**
  * crawl-fetch handler: performs (or, for fixture-mode sources, simulates) the actual
@@ -9,26 +13,42 @@ const { enqueueParse } = require('../../queue/enqueue');
  * rate-limit delay (src/queue/rateLimits.js) is applied by the caller
  * (src/workers/index.js) right before this runs, not inside this handler.
  *
- * The `crawl-parse` stage (src/workers/handlers/parse.js) re-fetches via the same
- * `fetchArticleHtml` helper inside `runPipeline` — for fixture-mode sources that's just
- * a cheap local file re-read, so this stage mainly exists to validate reachability /
- * honor rate limits before work is queued further, matching the discover -> fetch ->
- * parse staged-queue design in src/queue/queues.js.
+ * Every HTTP outcome is audited. A successful response is cached under fetchId;
+ * parse consumes that same response. Retryable failures throw for BullMQ backoff,
+ * while blocked/nonretryable outcomes fail without retrying the same attempt.
  *
  * @param {import('bullmq').Job} job - job.data: { sourceId, url, ... }
  * @returns {Promise<{ok: boolean, sourceId: string, url: string, status: number}>}
  */
-async function handleFetch(job) {
+async function handleFetch(job, deps={}) {
   const { sourceId, url } = job.data;
-
-  const result = await fetchArticleHtml(sourceId, url);
-  const ok = result.status >= 200 && result.status < 300;
-
-  if (ok) {
-    await enqueueParse({ sourceId, url });
+  const normalizedUrl=normalizeUrl(url);
+  const db=deps.db||require('../../db/pool');
+  const setStatus=deps.setStatus||upsertProcessingStatus;
+  const start=Date.now(),number=(job.attemptsMade||0)+1;
+  await setStatus({sourceId,normalizedUrl,status:'fetching',reason:`attempt_${number}`});
+  let result,error;
+  try{result=await (deps.fetch||fetchArticleHtml)(sourceId,url);}catch(e){error=e;}
+  const ok=!error&&result.status>=200&&result.status<300;
+  const blocked=[401,403].includes(result?.status);
+  const retryable=!!error || result?.status===429 || result?.status>=500;
+  const exhausted=number >= (job.opts?.attempts||3);
+  const status=ok?'fetched':blocked?'blocked':retryable&&!exhausted?'retry_scheduled':'dead_letter';
+  const reason=error?.code||error?.message||`http_${result?.status}`;
+  const attempt=await db.query(`INSERT INTO fetch_attempts(source_id,normalized_url,attempted_at,attempt_number,http_status,response_time_ms,
+    response_bytes,final_url,error_type,error_message,retry_scheduled_at)
+    VALUES($1,$2,clock_timestamp(),$3,$4,$5,$6,$7,$8,$9,CASE WHEN $10 THEN NOW()+INTERVAL '1 minute' ELSE NULL END) RETURNING fetch_id`,
+    [sourceId,normalizedUrl,number,result?.status||null,Date.now()-start,Buffer.byteLength(result?.body||''),result?.finalUrl||url,
+      ok?null:status,ok?null:String(reason).slice(0,500),status==='retry_scheduled']);
+  await setStatus({sourceId,normalizedUrl,status,reason:ok?'fetch_ok':reason});
+  if(!ok) {
+    if(status==='retry_scheduled')throw error||new Error(reason);
+    throw new UnrecoverableError(reason);
   }
-
-  return { ok, sourceId, url, status: result.status };
+  const fetchId=attempt.rows[0].fetch_id;
+  await (deps.save||cache.save)(sourceId,url,fetchId,result);
+  await (deps.enqueueParse||enqueueParse)({sourceId,url,fetchId});
+  return {ok:true,sourceId,url,status:result.status,fetchId};
 }
 
 module.exports = { handleFetch };

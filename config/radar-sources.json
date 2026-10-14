@@ -1,0 +1,529 @@
+{
+  "sources": [
+    {
+      "id": "detik",
+      "label": "Detik",
+      "group": "transmedia",
+      "hosts": [
+        "detik.com",
+        "www.detik.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 15,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          },
+          "pagination": {
+            "parameter": "page",
+            "step": 1
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.detik.com/sumut/berita/d-7453944/trans-media-dukung-pengembangan-sumut-lewat-apresiasi",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "cnn_indonesia",
+      "label": "CNN Indonesia",
+      "group": "transmedia",
+      "hosts": [
+        "cnnindonesia.com",
+        "www.cnnindonesia.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          },
+          "pagination": {
+            "parameter": "page",
+            "step": 1
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.detik.com/sumut/berita/d-7453944/trans-media-dukung-pengembangan-sumut-lewat-apresiasi",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "liputan6",
+      "label": "Liputan6",
+      "group": "kly",
+      "hosts": [
+        "liputan6.com",
+        "www.liputan6.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "politics",
+          "kind": "adapter",
+          "desks": [
+            "politics"
+          ],
+          "coverage": "Official desk listing verified read-only from local on 2026-10-14; pagination completeness tracked separately",
+          "options": {
+            "channelUrl": "https://www.liputan6.com/news/politik"
+          }
+        },
+        {
+          "id": "business",
+          "kind": "adapter",
+          "desks": [
+            "business"
+          ],
+          "coverage": "Official desk listing verified read-only from local on 2026-10-14; pagination completeness tracked separately",
+          "options": {
+            "channelUrl": "https://www.liputan6.com/bisnis"
+          }
+        },
+        {
+          "id": "technology",
+          "kind": "adapter",
+          "desks": [
+            "technology"
+          ],
+          "coverage": "Official desk listing verified read-only from local on 2026-10-14; pagination completeness tracked separately",
+          "options": {
+            "channelUrl": "https://www.liputan6.com/tekno"
+          }
+        },
+        {
+          "id": "sports",
+          "kind": "adapter",
+          "desks": [
+            "sports"
+          ],
+          "coverage": "Official desk listing verified read-only from local on 2026-10-14; pagination completeness tracked separately",
+          "options": {
+            "channelUrl": "https://www.liputan6.com/bola"
+          }
+        },
+        {
+          "id": "entertainment",
+          "kind": "adapter",
+          "desks": [
+            "entertainment"
+          ],
+          "coverage": "Official desk listing verified read-only from local on 2026-10-14; pagination completeness tracked separately",
+          "options": {
+            "channelUrl": "https://www.liputan6.com/showbiz"
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.kly.id/service",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "viva",
+      "label": "VIVA",
+      "group": "viva",
+      "hosts": [
+        "viva.co.id",
+        "www.viva.co.id"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "suara",
+      "label": "Suara",
+      "group": "suara",
+      "hosts": [
+        "suara.com",
+        "www.suara.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 15,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "discoverMaxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "jawa_pos",
+      "label": "Jawa Pos",
+      "group": "jawa_pos",
+      "hosts": [
+        "jawapos.com",
+        "www.jawapos.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "okezone",
+      "label": "Okezone",
+      "group": "mnc",
+      "hosts": [
+        "okezone.com",
+        "www.okezone.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.mncdigital.com/microcontact/mnc-pictures",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "sindonews",
+      "label": "SINDOnews",
+      "group": "mnc",
+      "hosts": [
+        "sindonews.com",
+        "www.sindonews.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          },
+          "pagination": {
+            "parameter": "offset",
+            "step": 20
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.mncdigital.com/microcontact/mnc-pictures",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "idn_times",
+      "label": "IDN Times",
+      "group": "idn_times",
+      "hosts": [
+        "idntimes.com",
+        "www.idntimes.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "republika",
+      "label": "Republika",
+      "group": "republika",
+      "hosts": [
+        "republika.co.id",
+        "www.republika.co.id"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          },
+          "pagination": {
+            "parameter": "offset",
+            "step": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "merdeka",
+      "label": "Merdeka",
+      "group": "kly",
+      "hosts": [
+        "merdeka.com",
+        "www.merdeka.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": true,
+      "ownershipEvidence": "https://www.kly.id/service",
+      "ownershipCheckedAt": "2026-10-14"
+    },
+    {
+      "id": "beritasatu",
+      "label": "Beritasatu",
+      "group": "beritasatu",
+      "hosts": [
+        "beritasatu.com",
+        "www.beritasatu.com"
+      ],
+      "active": true,
+      "reason": "Recent live ingestion observed in read-only audit 2026-10-14; per-channel completeness must still be validated.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 60,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          },
+          "pagination": {
+            "parameter": "page",
+            "step": 1
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "tempo",
+      "label": "Tempo",
+      "group": "tempo",
+      "hosts": [
+        "tempo.co",
+        "www.tempo.co"
+      ],
+      "active": false,
+      "reason": "Paused: audit 2026-10-14 found no recent verified article ingestion. Re-enroll after channel validation.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "kumparan",
+      "label": "Kumparan",
+      "group": "kumparan",
+      "hosts": [
+        "kumparan.com",
+        "www.kumparan.com"
+      ],
+      "active": false,
+      "reason": "Paused: audit 2026-10-14 found no recent verified article ingestion. Re-enroll after channel validation.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 20,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "tirto",
+      "label": "Tirto",
+      "group": "tirto",
+      "hosts": [
+        "tirto.id",
+        "www.tirto.id"
+      ],
+      "active": false,
+      "reason": "Paused: audit 2026-10-14 found no recent verified article ingestion. Re-enroll after channel validation.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "tribunnews",
+      "label": "Tribunnews",
+      "group": "tribunnews",
+      "hosts": [
+        "tribunnews.com",
+        "www.tribunnews.com"
+      ],
+      "active": false,
+      "reason": "Paused: audit 2026-10-14 found no recent verified article ingestion. Re-enroll after channel validation.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 60,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    },
+    {
+      "id": "media_indonesia",
+      "label": "Media Indonesia",
+      "group": "media_indonesia",
+      "hosts": [
+        "mediaindonesia.com",
+        "www.mediaindonesia.com"
+      ],
+      "active": false,
+      "reason": "Paused: audit 2026-10-14 found no recent verified article ingestion. Re-enroll after channel validation.",
+      "enrolledAt": "2026-10-14T00:00:00Z",
+      "intervalMinutes": 30,
+      "channels": [
+        {
+          "id": "existing-index",
+          "kind": "adapter",
+          "desks": [],
+          "coverage": "Adapter default channel only; no claim of complete desk coverage",
+          "options": {
+            "maxPages": 50
+          }
+        }
+      ],
+      "ownershipVerified": false,
+      "ownershipEvidence": null,
+      "ownershipCheckedAt": null
+    }
+  ]
+}

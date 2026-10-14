@@ -183,6 +183,7 @@ async function discoverLive(ctx) {
 
   const items = [];
   const seen = new Set();
+  let complete = false;
 
   pageLoop: for (let page = 1; page <= maxPages && items.length < limit; page += 1) {
     const pageUrl = page === 1 ? INDEKS_URL : `${INDEKS_URL}?page=${page}`;
@@ -242,6 +243,7 @@ async function discoverLive(ctx) {
       // once one item is confidently older than the cutoff, every subsequent item (this page
       // and any further page) is too -- stop discovering entirely rather than just this page.
       if (cutoffAt && isOlderThanCutoff(publishedHint, cutoffAt)) {
+        complete = true;
         break pageLoop;
       }
 
@@ -259,7 +261,7 @@ async function discoverLive(ctx) {
     }
   }
 
-  return { items };
+  return { items, complete };
 }
 
 /**
