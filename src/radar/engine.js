@@ -161,11 +161,17 @@ function aggregateRadar(rows,{cohort,health=[],asOf=new Date(),windowHours=24,id
     exact.set(text(doc.title),id);
   }
   const usedIds=new Set();
-  const events=clusters.map(cluster=>{
+  const events=clusters.map((cluster,clusterIndex)=>{
     const members=cluster.members;
     const prior=new Map();for(const m of members) {const id=identities.get(m.key);if(id)prior.set(id,(prior.get(id)||0)+1);}
     const old=[...prior].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])).find(([id])=>!usedIds.has(id));
-    const id=old?.[0]||`radar-${hash(members[0].key)}`;usedIds.add(id);
+    let id=old?.[0]||`radar-${hash(members[0].key)}`;
+    if(usedIds.has(id)) {
+      const seed=members.map(member=>member.key).sort().join('\n');
+      let salt=0;
+      do { id=`radar-${hash(`${seed}\ncluster:${clusterIndex}\n${salt++}`)}`; } while(usedIds.has(id));
+    }
+    usedIds.add(id);
     const rank=scoreEvent(members,cohort,health,now);
     const representative=members.slice().sort((a,b)=>b.matchScore-a.matchScore||a.published-b.published||a.key.localeCompare(b.key))[0];
     const angles=new Map();

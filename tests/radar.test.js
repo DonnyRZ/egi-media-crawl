@@ -61,6 +61,18 @@ test('stable identity is reused after representative changes',()=>{
   input[0].title='KPK OTT BNPB Jakarta Pengusutan Dana Bantuan';
   assert.equal(run(input,{identities}).events[0].id,first.id);
 });
+test('fallback event identity cannot collide with an inherited identity',()=>{
+  const crypto=require('node:crypto');
+  const input=[
+    {source_id:'a',title:'KPK OTT BNPB Jakarta Dana Bantuan',url:'https://news.test/a',published_at:'2026-10-14T11:00:00Z',first_seen_at:'2026-10-14T11:05:00Z',evidence_quality:'full_text'},
+    {source_id:'b',title:'NASA Artemis Lunar Rocket Launch Schedule',url:'https://news.test/b',published_at:'2026-10-14T11:00:00Z',first_seen_at:'2026-10-14T11:05:00Z',evidence_quality:'full_text'},
+  ];
+  const collidingFallback=`radar-${crypto.createHash('sha256').update('b:https://news.test/b').digest('hex').slice(0,24)}`;
+  const result=run(input,{identities:new Map([['a:https://news.test/a',collidingFallback]])});
+  assert.equal(result.events.length,2);
+  assert.equal(new Set(result.events.map(event=>event.id)).size,2);
+  assert(result.events.some(event=>event.id===collidingFallback));
+});
 test('no input cap; older eligible sources remain processed',()=>{const input=rows(Array(15001).fill('KPK OTT BNPB Jakarta Dana Bantuan'));assert.equal(run(input).processedCount,15001);});
 test('cohort changes and stale input are explicit',()=>{
   const run={as_of:now,cohort_version:'old',eligible_count:3,processed_count:3,health};
