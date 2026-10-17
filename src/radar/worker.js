@@ -21,9 +21,15 @@ async function runRadar({db=require('../db/pool'),asOf=new Date(),windows=[24,72
         results.push({runId,windowHours,eligible:result.eligibleCount,processed:result.processedCount,events:result.events.length});
       }catch(error){if(runId)await store.failRun(runId,error,db);throw error;}
     }
-    if(!dryRun)await store.retain(db);
     return {ok:true,cohortVersion:cohort.version,results};
-  }finally {if(lock)await client.query("SELECT pg_advisory_unlock(hashtext('editorial-radar-v2'))");client.release();}
+  }finally {
+    try {
+      if(lock && !dryRun) {
+        try { await store.retain(db); }
+        finally { await client.query("SELECT pg_advisory_unlock(hashtext('editorial-radar-v2'))"); }
+      } else if(lock) await client.query("SELECT pg_advisory_unlock(hashtext('editorial-radar-v2'))");
+    } finally { client.release(); }
+  }
 }
 async function shadowRadar(options) {if(!enabled())return {skipped:true,reason:'disabled'};return runRadar(options);}
 module.exports={runRadar,shadowRadar};

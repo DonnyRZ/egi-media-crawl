@@ -5,13 +5,15 @@ const fs=require('node:fs');
 const path=require('node:path');
 const db=require('../src/db/pool');
 const {loadCohort}=require('../src/radar/cohort');
+const {memberPayloadSql}=require('../src/radar/memberPayload');
 async function exportReview() {
   const directory=path.resolve(process.argv[2]||'reports/radar-review');fs.mkdirSync(directory,{recursive:true});
   const latest=await db.query(`SELECT * FROM radar_runs WHERE window_hours=168 AND status='succeeded' ORDER BY finished_at DESC LIMIT 1`);
   if(!latest.rows[0])throw new Error('Run a local shadow snapshot before exporting reviewer samples');
   const run=latest.rows[0];
   const snapshots=await db.query('SELECT event_id,category,payload FROM radar_snapshots WHERE run_id=$1 ORDER BY score DESC,event_id',[run.run_id]);
-  const members=await db.query('SELECT event_id,observation_key,payload FROM radar_run_members WHERE run_id=$1 ORDER BY event_id,observation_key',[run.run_id]);
+  const members=await db.query(`SELECT event_id,observation_key,${memberPayloadSql('member')} AS payload
+    FROM radar_run_members member WHERE run_id=$1 ORDER BY event_id,observation_key`,[run.run_id]);
   const byEvent=new Map();for(const row of members.rows){if(!byEvent.has(row.event_id))byEvent.set(row.event_id,[]);byEvent.get(row.event_id).push(row.payload);}
   const categories=['business','technology','politics','sports','entertainment'];
   const sample=categories.flatMap(category=>snapshots.rows.filter(e=>e.category===category).slice(0,20));

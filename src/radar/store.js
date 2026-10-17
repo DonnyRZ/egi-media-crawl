@@ -71,16 +71,49 @@ async function persistRun(id,result,health,db=pool()) {
       await client.query(`INSERT INTO radar_members(event_id,observation_key,last_seen_at)
         SELECT x->>'eventId',x->>'key',$2 FROM jsonb_array_elements($1::jsonb)x
         ON CONFLICT(observation_key) DO UPDATE SET event_id=EXCLUDED.event_id,last_seen_at=EXCLUDED.last_seen_at`,[JSON.stringify(members),result.asOf]);
-      await client.query(`INSERT INTO radar_run_members(run_id,event_id,observation_key,payload)
-        SELECT $2,x->>'eventId',x->>'key',x->'payload' FROM jsonb_array_elements($1::jsonb)x`,[JSON.stringify(members),id]);
+      await client.query(`INSERT INTO radar_run_members(
+        run_id,event_id,observation_key,source_id,source_label,title,published_at,
+        evidence_quality,angle_id,match_score,payload)
+        SELECT $2,x->>'eventId',x->>'key',x->'payload'->>'source',x->'payload'->>'sourceLabel',
+          x->'payload'->>'title',(x->'payload'->>'publishedAt')::timestamptz,
+          x->'payload'->>'evidenceQuality',x->'payload'->>'angleId',(x->'payload'->>'matchScore')::real,NULL
+        FROM jsonb_array_elements($1::jsonb)x`,[JSON.stringify(members),id]);
     }
     await client.query(`UPDATE radar_runs SET status='succeeded',eligible_count=$2,processed_count=$3,event_count=$4,
       health=$5,finished_at=clock_timestamp() WHERE run_id=$1`,[id,result.eligibleCount,result.processedCount,result.events.length,JSON.stringify(health)]);
     await client.query('COMMIT');
   } catch(error) {await client.query('ROLLBACK');throw error;} finally {client.release();}
 }
+const RETAINED_RUNS_PER_WINDOW = 24;
+const RETENTION_BATCH_SIZE = 10000;
+const RETENTION_MAX_ROWS_PER_TABLE = 50000;
+
+async function deleteStaleRunRows(table,db) {
+  let deleted=0;
+  while(deleted<RETENTION_MAX_ROWS_PER_TABLE) {
+    const result=await db.query(`WITH keep_runs AS MATERIALIZED (
+        SELECT run_id FROM (
+          SELECT run_id,row_number() OVER(PARTITION BY window_hours ORDER BY finished_at DESC,run_id DESC) AS position
+          FROM radar_runs WHERE status='succeeded'
+        ) ranked WHERE position<=$1
+      ), victims AS (
+        SELECT target.ctid FROM ${table} target
+        WHERE NOT EXISTS(SELECT 1 FROM keep_runs kept WHERE kept.run_id=target.run_id)
+        ORDER BY target.run_id ASC LIMIT $2
+      )
+      DELETE FROM ${table} target USING victims WHERE target.ctid=victims.ctid`,
+    [RETAINED_RUNS_PER_WINDOW,Math.min(RETENTION_BATCH_SIZE,RETENTION_MAX_ROWS_PER_TABLE-deleted)]);
+    deleted+=result.rowCount||0;
+    if(!result.rowCount)break;
+  }
+  return deleted;
+}
+
 async function retain(db=pool()) {
-  await db.query(`DELETE FROM radar_run_members WHERE run_id IN(SELECT run_id FROM radar_runs WHERE finished_at< NOW()-INTERVAL '7 days')`);
+  // Keep recent event detail for CMS interactions while retaining lightweight
+  // run metadata for the full shadow-evaluation window.
+  const deletedMembers=await deleteStaleRunRows('radar_run_members',db);
+  const deletedSnapshots=await deleteStaleRunRows('radar_snapshots',db);
   await db.query(`DELETE FROM radar_runs WHERE status!='running' AND finished_at<NOW()-INTERVAL '30 days'`);
   await db.query(`UPDATE radar_runs SET status='failed',finished_at=clock_timestamp(),error_message='Interrupted or exceeded run timeout'
     WHERE status='running' AND started_at<NOW()-INTERVAL '30 minutes'`);
@@ -89,5 +122,7 @@ async function retain(db=pool()) {
   await db.query(`DELETE FROM radar_events e WHERE e.last_seen_at<NOW()-INTERVAL '30 days'
     AND NOT EXISTS(SELECT 1 FROM radar_snapshots s WHERE s.event_id=e.event_id)
     AND NOT EXISTS(SELECT 1 FROM radar_members m WHERE m.event_id=e.event_id)`);
+  return {deletedMembers,deletedSnapshots,retainedRunsPerWindow:RETAINED_RUNS_PER_WINDOW};
 }
-module.exports={recordHealth,recordObservation,readInputs,beginRun,persistRun,failRun,retain};
+module.exports={recordHealth,recordObservation,readInputs,beginRun,persistRun,failRun,retain,
+  RETAINED_RUNS_PER_WINDOW,RETENTION_BATCH_SIZE,RETENTION_MAX_ROWS_PER_TABLE};

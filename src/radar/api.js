@@ -1,5 +1,6 @@
 'use strict';
 const {loadCohort,enabled,available}=require('./cohort');
+const {memberPayloadSql}=require('./memberPayload');
 function availability(run,cohort,now=Date.now()) {
   if(!run)return 'warming_up';
   if(now-new Date(run.as_of).getTime()>30*60000)return 'stale';
@@ -59,8 +60,10 @@ async function readDetail({db,id,windowHours=24,page=1,limit=20,runId=null}) {
     AND ($2::bigint IS NULL OR run_id=$2) ORDER BY finished_at DESC,run_id DESC LIMIT 1`,[windowHours,runId]);
   const snapshot=run.rows[0]&&await db.query('SELECT payload FROM radar_snapshots WHERE run_id=$1 AND event_id=$2',[run.rows[0].run_id,id]);
   if(!snapshot?.rows[0])throw Object.assign(new Error('Event is outside the selected snapshot'),{status:404});
-  const result=await db.query(`SELECT payload FROM radar_run_members WHERE run_id=$1 AND event_id=$2
-    ORDER BY payload->>'publishedAt' DESC,observation_key LIMIT $3 OFFSET $4`,[run.rows[0].run_id,id,limit,(page-1)*limit]);
+  const result=await db.query(`SELECT ${memberPayloadSql('member')} AS payload FROM radar_run_members member
+    WHERE run_id=$1 AND event_id=$2
+    ORDER BY COALESCE(published_at,(payload->>'publishedAt')::timestamptz) DESC,observation_key
+    LIMIT $3 OFFSET $4`,[run.rows[0].run_id,id,limit,(page-1)*limit]);
   const total=await db.query('SELECT COUNT(*)::int AS total FROM radar_run_members WHERE run_id=$1 AND event_id=$2',[run.rows[0].run_id,id]);
   return {item:{...snapshot.rows[0].payload,articles:result.rows.map(r=>r.payload)},page,limit,total:total.rows[0].total,
     total_pages:Math.ceil(total.rows[0].total/limit),meta:meta(run.rows[0],loadCohort())};
